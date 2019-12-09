@@ -36,6 +36,6 @@ public class CarMockDao {
 	}
 	
 	public String test() {
-		return "test";
+		return "testing";
 	}
 }
