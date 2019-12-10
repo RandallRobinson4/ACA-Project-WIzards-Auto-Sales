@@ -5,13 +5,23 @@ public class Model {
 	private String name;
 	private String make;
 	private int modelYear;
+	private int id;
 	
 	public Model() {}
 	
-	public Model(String name, String make, int modelYear) {
+	public Model(String name, String make, int modelYear, int id) {
 		this.name = name;
 		this.make = make;
 		this.modelYear = modelYear;
+		this.id = id;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
