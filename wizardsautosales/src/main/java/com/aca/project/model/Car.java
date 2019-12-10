@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class Car {
 
-		private Model model;
+		private Make model;
 		private Interior interior;
 		private String color;
 		private int mileage;
@@ -14,7 +14,7 @@ public class Car {
 		
 		public Car() {}
 		
-		public Car(Model model, Interior interior, String color, int mileage, BigDecimal price, int id, int avgMPG) {
+		public Car(Make model, Interior interior, String color, int mileage, BigDecimal price, int id, int avgMPG) {
 			this.model = model;
 			this.interior = interior;
 			this.color = color;
@@ -32,11 +32,11 @@ public class Car {
 			this.avgMPG = avgMPG;
 		}
 
-		public Model getModel() {
+		public Make getModel() {
 			return model;
 		}
 
-		public void setModel(Model model) {
+		public void setModel(Make model) {
 			this.model = model;
 		}
 

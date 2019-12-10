@@ -17,4 +17,16 @@ public class CarService {
 		return dao.getByModelName(modelName);
 	}
 
+	public Car deleteCarById(int id) {
+		return dao.deleteCarById(id);
+	}
+
+	public Car addCar(Car newCar) {
+		return dao.addCar(newCar);
+	}
+
+	public Car updateCar(Car updatedCar) {
+		return dao.updateCar(updatedCar);
+	}
+
 }

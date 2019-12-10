@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.aca.project.model.Car;
 import com.aca.project.model.Interior;
+import com.aca.project.model.Make;
 import com.aca.project.model.Model;
 
 
@@ -14,12 +15,13 @@ public class CarMockDao {
 	private static List<Car> cars = new ArrayList<>();
 	private static int counter = 1;
 	private static int modelIdCounter = 1;
+	private static int makeIdCounter = 1;
 	
 	static {
-		cars.add(new Car(new Model("Kia", "Soul", 2019, modelIdCounter++), new Interior("Gray", true, true, false), "White", 16000, new BigDecimal(24595), counter++, 22));
-		cars.add(new Car(new Model("GMC", "Sierra", 2008, modelIdCounter++), new Interior("Tan", true, false, false), "White", 82000, new BigDecimal(11492), counter++, 14));
-		cars.add(new Car(new Model("Ford", "Mustang", 1992, modelIdCounter++), new Interior("Black", false, false, false), "Green", 112000, new BigDecimal(14393), counter++, 17));
-		cars.add(new Car(new Model("Toyota", "Prius", 2018, modelIdCounter++), new Interior("Gray", true, true, true), "Black", 900, new BigDecimal(32191), counter++, 33));
+		cars.add(new Car(new Make("Kia", new Model("Soul", modelIdCounter++), 2019, makeIdCounter++), new Interior("Gray", true, true, false), "White", 16000, new BigDecimal(24595), counter++, 22));
+		cars.add(new Car(new Make("GMC", new Model("Sierra", modelIdCounter++), 2008, makeIdCounter++), new Interior("Tan", true, false, false), "White", 82000, new BigDecimal(11492), counter++, 14));
+		cars.add(new Car(new Make("Ford", new Model("Mustang", modelIdCounter++), 1992, makeIdCounter++), new Interior("Black", false, false, false), "Green", 112000, new BigDecimal(14393), counter++, 17));
+		cars.add(new Car(new Make("Toyota", new Model("Prius", modelIdCounter++), 2018, makeIdCounter++), new Interior("Gray", true, true, true), "Black", 900, new BigDecimal(32191), counter++, 33));
 	}
 	
 	public List<Car> getAllInventory() {
@@ -35,8 +37,19 @@ public class CarMockDao {
 		}
 		return carsByModel;
 	}
-	
-	public String test() {
-		return "testing";
+
+	public Car deleteCarById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Car addCar(Car newCar) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Car updateCar(Car updatedCar) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
