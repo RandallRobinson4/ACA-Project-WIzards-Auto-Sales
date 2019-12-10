@@ -18,7 +18,9 @@ public class CarService {
 	}
 
 	public Car deleteCarById(int id) {
-		return dao.deleteCarById(id);
+		Car car = dao.getCarById(id);
+		dao.deleteCarById(car);
+		return car;
 	}
 
 	public Car addCar(Car newCar) {
@@ -27,6 +29,10 @@ public class CarService {
 
 	public Car updateCar(Car updatedCar) {
 		return dao.updateCar(updatedCar);
+	}
+
+	public Car getCarById(int id) {
+		return dao.getCarById(id);
 	}
 
 }

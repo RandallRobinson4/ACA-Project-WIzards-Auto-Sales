@@ -38,9 +38,8 @@ public class CarMockDao {
 		return carsByModel;
 	}
 
-	public Car deleteCarById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public void deleteCarById(Car car) {
+		cars.remove(car);
 	}
 
 	public Car addCar(Car newCar) {
@@ -51,5 +50,15 @@ public class CarMockDao {
 	public Car updateCar(Car updatedCar) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public Car getCarById(int id) {
+		Car car = null;
+		 for (Car element : cars) {
+			 if (element.getId() == id) {
+				 car = element;
+			 }
+		 }
+		return car;
 	}
 }

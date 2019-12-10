@@ -25,6 +25,13 @@ public class CarController {
 	public List<Car> getallInventory() {
 		return carService.getAllInventory();		
 	}
+	
+	@GET
+	@Path("/id/{value}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Car getCarById(@PathParam("value") int id) {
+		return carService.getCarById(id);
+	}
 
 	@GET
 	@Path("/model/{value}")
