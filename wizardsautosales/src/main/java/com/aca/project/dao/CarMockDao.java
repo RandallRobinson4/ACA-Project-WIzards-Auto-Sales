@@ -18,10 +18,14 @@ public class CarMockDao {
 	private static int makeIdCounter = 1;
 	
 	static {
-		cars.add(new Car(new Make("Kia", makeIdCounter++), new Interior("Gray", true, true, false), "White", 16000, new BigDecimal(24595), counter++, 22, new Model("Soul", modelIdCounter++), 2019));
-		cars.add(new Car(new Make("GMC", makeIdCounter++), new Interior("Tan", true, false, false), "White", 82000, new BigDecimal(11492), counter++, 14, new Model("Sierra", modelIdCounter++), 2008));
-		cars.add(new Car(new Make("Ford", makeIdCounter++), new Interior("Black", false, false, false), "Green", 112000, new BigDecimal(14393), counter++, 17, new Model("Mustang", modelIdCounter++), 1992));
-		cars.add(new Car(new Make("Toyota", makeIdCounter++), new Interior("Gray", true, true, true), "Black", 900, new BigDecimal(32191), counter++, 33, new Model("Prius", modelIdCounter++), 2018));
+		Make kia = new Make("Kia", makeIdCounter++);
+		Make gmc = new Make("GMC", makeIdCounter++);
+		Make ford = new Make("Ford", makeIdCounter++);
+		Make toyota = new Make("Toyota", makeIdCounter++);
+		cars.add(new Car(kia, new Interior("Gray", true, true, false), "White", 16000, new BigDecimal(24595), counter++, 22, new Model("Soul", kia, modelIdCounter++), 2019));
+		cars.add(new Car(gmc, new Interior("Tan", true, false, false), "White", 82000, new BigDecimal(11492), counter++, 14, new Model("Sierra", gmc, modelIdCounter++), 2008));
+		cars.add(new Car(ford, new Interior("Black", false, false, false), "Green", 112000, new BigDecimal(14393), counter++, 17, new Model("Mustang", ford, modelIdCounter++), 1992));
+		cars.add(new Car(toyota, new Interior("Gray", true, true, true), "Black", 900, new BigDecimal(32191), counter++, 33, new Model("Prius", toyota, modelIdCounter++), 2018));
 	}
 	
 	public List<Car> getAllInventory() {

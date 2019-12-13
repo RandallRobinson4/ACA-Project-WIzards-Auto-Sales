@@ -4,12 +4,22 @@ public class Model {
 	
 	private String name;
 	private int id;
+	private Make make;
 	
 	public Model() {}
 	
-	public Model(String name, int id) {
+	public Model(String name, Make make, int id) {
 		this.name = name;
 		this.id = id;
+		this.make = make;
+	}
+
+	public Make getMake() {
+		return make;
+	}
+
+	public void setMake(Make make) {
+		this.make = make;
 	}
 
 	public String getName() {

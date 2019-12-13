@@ -41,7 +41,7 @@ public class CarController {
 	}
 	
 	@DELETE
-	@Path("/{value}")
+	@Path("/id/{value}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Car deleteMovieById(@PathParam("value") int id) {
 		Car car = carService.deleteCarById(id);
