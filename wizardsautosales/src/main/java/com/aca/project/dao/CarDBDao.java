@@ -1,5 +1,6 @@
 package com.aca.project.dao;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.aca.project.model.Car;
+import com.aca.project.model.Interior;
 import com.aca.project.model.Make;
 import com.aca.project.model.Model;
 
@@ -29,7 +31,6 @@ public class CarDBDao {
 		    result = statement.executeQuery(CarSQL.GETCARSSQL.statement());
 			
 			while (result.next()) {
-				System.out.println(result.getObject("makeId"));
 				Car car = makeCar(result);
 				cars.add(car);
 			}
@@ -50,17 +51,18 @@ public class CarDBDao {
 	}
 	
 	private Car makeCar(ResultSet result) throws SQLException {
-		/*Car car = new Car();
-		car.setAvgMPG(result.getInt("aveMPG"));
+		Car car = new Car();
+		Make make = new Make(result.getString("make.name"), result.getInt("makeId"));
+		car.setAvgMPG(result.getInt("avgMPG"));
 		car.setColor(result.getString("color"));
-		car.setId(result.getInt("carid"));
-		car.setInterior(result.getObject("interiorId"));
-		car.setMake(result.getObject("makeId"));
+		car.setId(result.getInt("carId"));
+		car.setInterior(new Interior(result.getString("interiorColor"), result.getBoolean("cruiseControl"), result.getBoolean("rearCamera"), result.getBoolean("navigationSystem")));
+		car.setMake(make);
 		car.setMileage(result.getInt("mileage"));
-		car.setModel(result.getObject("modelId"));
+		car.setModel(new Model(result.getString("model.name"), make, result.getInt("modelId")));
 		car.setModelYear(result.getInt("modelYear"));
-		car.setPrice(result.getString("price"));		*/
-		return null;
+		car.setPrice(new BigDecimal(result.getString("price")));	
+		return car;
 	} 
 	
 	private Make makeMake(ResultSet result) throws SQLException {
