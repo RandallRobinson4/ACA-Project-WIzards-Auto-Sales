@@ -2,26 +2,26 @@ package com.aca.project.model;
 
 public class Interior {
 	
-	private String color;
+	private String interiorColor;
 	private boolean cruiseControl;
 	private boolean rearCamera;
 	private boolean navigationSystem;
 	
 	public Interior() {}
 	
-	public Interior(String color, boolean cruiseControl, boolean rearCamera, boolean navigationSystem) {
-		this.color = color;
+	public Interior(String interiorColor, boolean cruiseControl, boolean rearCamera, boolean navigationSystem) {
+		this.interiorColor = interiorColor;
 		this.cruiseControl = cruiseControl;
 		this.rearCamera = rearCamera;
 		this.navigationSystem = navigationSystem;
 	}
 
 	public String getColor() {
-		return color;
+		return interiorColor;
 	}
 
-	public void setColor(String color) {
-		this.color = color;
+	public void setInteriorColor(String interiorColor) {
+		this.interiorColor = interiorColor;
 	}
 
 	public boolean isCruiseControl() {
