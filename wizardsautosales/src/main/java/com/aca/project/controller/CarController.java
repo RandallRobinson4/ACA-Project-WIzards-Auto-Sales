@@ -40,6 +40,13 @@ public class CarController {
 		return carService.getByModelName(modelName);
 	}
 	
+	@GET
+	@Path("/make/{value}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Car> getbyMakeName(@PathParam("value") String makeName) {
+		return carService.getByMakeName(makeName);
+	}
+	
 	@DELETE
 	@Path("/id/{value}")
 	@Produces(MediaType.APPLICATION_JSON)

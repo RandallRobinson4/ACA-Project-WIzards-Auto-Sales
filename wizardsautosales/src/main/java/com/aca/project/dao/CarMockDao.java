@@ -45,15 +45,24 @@ public class CarMockDao {
 	public void deleteCarById(Car car) {
 		cars.remove(car);
 	}
-
 	public Car addCar(Car newCar) {
-		// TODO Auto-generated method stub
-		return null;
+		newCar.setId(counter++);
+		newCar.getModel().setId(modelIdCounter++);
+		newCar.getMake().setId(makeIdCounter++);
+		cars.add(newCar);
+		return newCar;
 	}
 
 	public Car updateCar(Car updatedCar) {
-		// TODO Auto-generated method stub
-		return null;
+		Car car = null;
+		for(Car element : cars) {
+			if (element.getId() == updatedCar.getId()) {
+				car = element;
+			}
+		}
+		cars.remove(car);
+		cars.add(updatedCar);
+		return updatedCar;
 	}
 
 	public Car getCarById(int id) {
@@ -64,5 +73,15 @@ public class CarMockDao {
 			 }
 		 }
 		return car;
+	}
+
+	public List<Car> getByMakeName(String makeName) {
+		List<Car> carsByMake = new ArrayList<>();
+		for (Car car : CarMockDao.cars) {
+			if (car.getMake().getName().equalsIgnoreCase(makeName)) {
+				carsByMake.add(car);
+			}
+		}
+		return carsByMake;
 	}
 }

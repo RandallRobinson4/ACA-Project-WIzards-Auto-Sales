@@ -35,4 +35,8 @@ public class CarService {
 		return dao.getCarById(id);
 	}
 
+	public List<Car> getByMakeName(String makeName) {
+		return dao.getByMakeName(makeName);
+	}
+
 }
