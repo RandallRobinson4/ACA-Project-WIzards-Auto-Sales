@@ -18,10 +18,24 @@ public class CarService {
 		return dao.getByModelName(modelName);
 	}
 
+	public List<Car> getByMakeName(String makeName) {
+		return dao.getByMakeName(makeName);
+	}
+
 	public Car deleteCarById(int id) {
 		Car car = dao.getCarById(id);
-		dao.deleteCarById(car);
+		dao.deleteCarById(id);
 		return car;
+	}
+	
+	public String deleteByMakeName(String makeName) {
+		dao.deleteByMakeName(makeName);
+		return makeName;
+	}
+	
+	public String deleteByModelGame(String modelName) {
+		dao.deleteByModelName(modelName);
+		return modelName;
 	}
 
 	public Car addCar(Car newCar) {
@@ -36,8 +50,5 @@ public class CarService {
 		return dao.getCarById(id);
 	}
 
-	public List<Car> getByMakeName(String makeName) {
-		return dao.getByMakeName(makeName);
-	}
 
 }

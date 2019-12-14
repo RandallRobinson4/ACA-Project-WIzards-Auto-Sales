@@ -6,7 +6,8 @@ public class Interior {
 	private boolean cruiseControl;
 	private boolean rearCamera;
 	private boolean navigationSystem;
-	
+	private int id;
+
 	public Interior() {}
 	
 	public Interior(String interiorColor, boolean cruiseControl, boolean rearCamera, boolean navigationSystem) {
@@ -16,7 +17,15 @@ public class Interior {
 		this.navigationSystem = navigationSystem;
 	}
 
-	public String getColor() {
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getInteriorColor() {
 		return interiorColor;
 	}
 
