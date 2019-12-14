@@ -12,6 +12,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.aca.project.model.Car;
+import com.aca.project.model.Make;
+import com.aca.project.model.Model;
 import com.aca.project.service.CarService;
 
 
@@ -47,6 +49,20 @@ public class CarController {
 		return carService.getByModelName(modelName);
 	}
 	
+	@GET
+	@Path("/models")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Model> getModels() {
+		return carService.getModels();
+	}
+	
+	@GET
+	@Path("/makes")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Make> getMakes() {
+		return carService.getMakes();
+	}
+	
 	@DELETE
 	@Path("/id/{value}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -60,6 +76,22 @@ public class CarController {
 	public Car addCar(Car newCar) {
 		Car car = carService.addCar(newCar);
 		return car;
+	}
+	
+	@POST
+	@Path("/make/{value}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Make addMake(@PathParam("value")String newMake) {
+		Make make = carService.addMake(newMake);
+		return make;
+	}
+	
+	@POST
+	@Path("/model/{value}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Model addModel(@PathParam("value") String newModel, Make make) {
+		Model model = carService.addModel(newModel, make);
+		return model;
 	}
 	
 	@PUT

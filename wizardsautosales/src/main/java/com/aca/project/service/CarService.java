@@ -5,6 +5,8 @@ import java.util.List;
 import com.aca.project.dao.CarDBDao;
 import com.aca.project.dao.CarMockDao;
 import com.aca.project.model.Car;
+import com.aca.project.model.Make;
+import com.aca.project.model.Model;
 
 public class CarService {
 	
@@ -28,13 +30,13 @@ public class CarService {
 		return car;
 	}
 	
-	public String deleteByMakeName(String makeName) {
-		dao.deleteByMakeName(makeName);
+	public String deleteMakeName(String makeName) {
+		dao.deleteMakeName(makeName);
 		return makeName;
 	}
 	
 	public String deleteByModelGame(String modelName) {
-		dao.deleteByModelName(modelName);
+		dao.deleteModelName(modelName);
 		return modelName;
 	}
 
@@ -48,6 +50,22 @@ public class CarService {
 
 	public Car getCarById(int id) {
 		return dao.getCarById(id);
+	}
+
+	public Make addMake(String newMake) {
+		return dao.addMake(newMake);
+	}
+
+	public Model addModel(String newModel, Make make) {
+		return dao.addModel(newModel, make);
+	}
+
+	public List<Model> getModels() {
+		return dao.getModels();
+	}
+
+	public List<Make> getMakes() {
+		return dao.getMakes();
 	}
 
 

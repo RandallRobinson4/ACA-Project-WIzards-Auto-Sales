@@ -5,7 +5,10 @@ import java.math.BigDecimal;
 public class Car {
 
 		private Make make;
-		private Interior interior;
+		private String interiorColor;
+		private boolean cruiseControl;
+		private boolean rearCamera;
+		private boolean navigationSystem;
 		private String color;
 		private int mileage;
 		private BigDecimal price;
@@ -16,9 +19,9 @@ public class Car {
 		
 		public Car() {}
 		
-		public Car(Make make, Interior interior, String color, int mileage, BigDecimal price, int id, int avgMPG, Model model, int modelYear) {
+		public Car(Make make, String interiorColor, boolean cruiseControl, boolean rearCamera, boolean navigationSystem, String color, int mileage, BigDecimal price, int id, int avgMPG, Model model, int modelYear) {
 			this.model = model;
-			this.interior = interior;
+			this.interiorColor = interiorColor;
 			this.color = color;
 			this.mileage = mileage;
 			this.price = price;
@@ -26,6 +29,9 @@ public class Car {
 			this.avgMPG = avgMPG;
 			this.make = make;
 			this.modelYear = modelYear;
+			this.cruiseControl = cruiseControl;
+			this.rearCamera = rearCamera;
+			this.navigationSystem = navigationSystem;
 		}
 
 
@@ -61,14 +67,6 @@ public class Car {
 			this.make = make;
 		}
 
-		public Interior getInterior() {
-			return interior;
-		}
-
-		public void setInterior(Interior interior) {
-			this.interior = interior;
-		}
-
 		public String getColor() {
 			return color;
 		}
@@ -99,6 +97,38 @@ public class Car {
 
 		public void setPrice(BigDecimal price) {
 			this.price = price;
+		}
+
+		public String getInteriorColor() {
+			return interiorColor;
+		}
+
+		public void setInteriorColor(String interiorColor) {
+			this.interiorColor = interiorColor;
+		}
+
+		public Boolean getCruiseControl() {
+			return cruiseControl;
+		}
+
+		public void setCruiseControl(Boolean cruiseControl) {
+			this.cruiseControl = cruiseControl;
+		}
+
+		public Boolean getRearCamera() {
+			return rearCamera;
+		}
+
+		public void setRearCamera(Boolean rearCamera) {
+			this.rearCamera = rearCamera;
+		}
+
+		public Boolean getNavigationSystem() {
+			return navigationSystem;
+		}
+
+		public void setNavigationSystem(Boolean navigationSystem) {
+			this.navigationSystem = navigationSystem;
 		}
 		
 		

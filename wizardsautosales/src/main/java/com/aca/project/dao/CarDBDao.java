@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.aca.project.model.Car;
-import com.aca.project.model.Interior;
 import com.aca.project.model.Make;
 import com.aca.project.model.Model;
 
@@ -56,10 +55,13 @@ public class CarDBDao {
 		Car car = new Car();
 		Make make = makeMake(result);
 		Model model = makeModel(result);
+		car.setInteriorColor(result.getString("interiorColor"));
 		car.setAvgMPG(result.getInt("avgMPG"));
 		car.setColor(result.getString("color"));
 		car.setId(result.getInt("carId"));
-		car.setInterior(new Interior(result.getString("interiorColor"), result.getBoolean("cruiseControl"), result.getBoolean("rearCamera"), result.getBoolean("navigationSystem")));
+		car.setCruiseControl(result.getBoolean("cruiseControl"));
+		car.setRearCamera(result.getBoolean("rearCamera"));
+		car.setNavigationSystem(result.getBoolean("navigationSystem"));
 		car.setMake(make);
 		car.setMileage(result.getInt("mileage"));
 		car.setModel(model);
@@ -191,11 +193,11 @@ public class CarDBDao {
 		
 	}
 	
-	public void deleteByMakeName(String makeName) {
+	public void deleteMakeName(String makeName) {
 		
 	}
 	
-	public void deleteByModelName(String modelName) {
+	public void deleteModelName(String modelName) {
 		
 	}
 
@@ -208,12 +210,15 @@ public class CarDBDao {
 			preparedStatement = con.prepareStatement(CarSQL.ADDNEWCARSQL.statement(), Statement.RETURN_GENERATED_KEYS);
 		    preparedStatement.setInt(1, newCar.getAvgMPG());
 		    preparedStatement.setString(2, newCar.getColor());
-		    preparedStatement.setInt(3, newCar.getMileage());
-		    preparedStatement.setInt(4, newCar.getModelYear());
-		    preparedStatement.setString(5, newCar.getPrice().toPlainString());
-		    preparedStatement.setInt(6, newCar.getInterior().getId());
-		    preparedStatement.setInt(7, newCar.getMake().getId());
-		    preparedStatement.setInt(8, newCar.getModel().getId());
+		    preparedStatement.setString(3, newCar.getInteriorColor());
+		    preparedStatement.setInt(4, newCar.getMileage());
+		    preparedStatement.setInt(5, newCar.getModelYear());
+		    preparedStatement.setString(6, newCar.getPrice().toPlainString());
+		    preparedStatement.setBoolean(7, newCar.getCruiseControl());
+		    preparedStatement.setBoolean(8,  newCar.getRearCamera());
+		    preparedStatement.setBoolean(9, newCar.getNavigationSystem());
+		    preparedStatement.setInt(10, newCar.getMake().getId());
+		    preparedStatement.setInt(11, newCar.getModel().getId());
 		    preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -243,5 +248,106 @@ public class CarDBDao {
 	public Car updateCar(Car updatedCar) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public Make addMake(String newmake) {
+		Make make = new Make();
+		Connection con = MariaDBUtil.getConnection();
+		PreparedStatement preparedStatement = null;
+		
+		try {
+			preparedStatement = con.prepareStatement(CarSQL.ADDNEWMAKESQL.statement(), Statement.RETURN_GENERATED_KEYS);
+		    preparedStatement.setString(1, newmake);
+		    preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+				if (generatedKeys.next()) {
+					make.setId(generatedKeys.getInt(1));
+				} 
+			
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			try {
+			if (con != null) {
+				preparedStatement.close();
+				con.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return make;
+	}
+
+	public Model addModel(String newModel, Make make) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<Model> getModels() {
+		List<Model> models = new ArrayList<>();
+		
+		Connection con = MariaDBUtil.getConnection();
+		Statement statement = null;
+		ResultSet result = null;
+		
+		try {
+			statement = con.createStatement();
+		    result = statement.executeQuery(CarSQL.GETMODELSSQL.statement() + ";");
+			
+			while (result.next()) {
+				Model model = makeModel(result);
+				models.add(model);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+			if (con != null) {
+				result.close();
+				statement.close();
+				con.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return models;
+	}
+
+	public List<Make> getMakes() {
+		List<Make> makes = new ArrayList<>();
+		
+		Connection con = MariaDBUtil.getConnection();
+		Statement statement = null;
+		ResultSet result = null;
+		
+		try {
+			statement = con.createStatement();
+		    result = statement.executeQuery(CarSQL.GETMAKESSQL.statement() + ";");
+			
+			while (result.next()) {
+				Make make = makeMake(result);
+				makes.add(make);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+			if (con != null) {
+				result.close();
+				statement.close();
+				con.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return makes;
 	}
 }
