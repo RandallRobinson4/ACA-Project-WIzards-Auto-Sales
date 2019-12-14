@@ -26,16 +26,16 @@ public class CarService {
 
 	public Car deleteCarById(int id) {
 		Car car = dao.getCarById(id);
-		dao.deleteCarById(id);
+		dao.deleteCarById(car);
 		return car;
 	}
 	
 	public String deleteMakeName(String makeName) {
 		dao.deleteMakeName(makeName);
-		return makeName;
+		return makeName;	
 	}
 	
-	public String deleteByModelGame(String modelName) {
+	public String deleteModelName(String modelName) {
 		dao.deleteModelName(modelName);
 		return modelName;
 	}
@@ -67,6 +67,5 @@ public class CarService {
 	public List<Make> getMakes() {
 		return dao.getMakes();
 	}
-
 
 }

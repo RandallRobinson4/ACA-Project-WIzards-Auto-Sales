@@ -16,6 +16,7 @@ import com.aca.project.model.Model;
 
 
 
+
 public class CarDBDao {
 	
 	
@@ -188,16 +189,80 @@ public class CarDBDao {
 		return car;
 	}
 
-	public void deleteCarById(int id) {
-		// TODO Auto-generated method stub
+	public void deleteCarById(Car car) {
+		Connection con = MariaDBUtil.getConnection();
+		PreparedStatement preparedStatement = null;
+		
+		try {
+			preparedStatement = con.prepareStatement(CarSQL.DELETECARSQL.statement());
+		    preparedStatement.setInt(1, car.getId());
+		    preparedStatement.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+			if (con != null) {
+		
+				preparedStatement.close();
+				con.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		
 	}
 	
 	public void deleteMakeName(String makeName) {
 		
+		Connection con = MariaDBUtil.getConnection();
+		PreparedStatement preparedStatement = null;
+		
+		try {
+			preparedStatement = con.prepareStatement(CarSQL.DELETEMAKESQL.statement());
+		    preparedStatement.setString(1, makeName);
+		    preparedStatement.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+			if (con != null) {
+		
+				preparedStatement.close();
+				con.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 	
 	public void deleteModelName(String modelName) {
+		Connection con = MariaDBUtil.getConnection();
+		PreparedStatement preparedStatement = null;
+		
+		try {
+			preparedStatement = con.prepareStatement(CarSQL.DELETEMODELSQL.statement());
+		    preparedStatement.setString(1, modelName);
+		    preparedStatement.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+			if (con != null) {
+		
+				preparedStatement.close();
+				con.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 		
 	}
 
@@ -285,8 +350,38 @@ public class CarDBDao {
 	}
 
 	public Model addModel(String newModel, Make make) {
-		// TODO Auto-generated method stub
-		return null;
+		Model model = new Model();
+		Connection con = MariaDBUtil.getConnection();
+		PreparedStatement preparedStatement = null;
+		
+		try {
+			preparedStatement = con.prepareStatement(CarSQL.ADDNEWMODELSQL.statement(), Statement.RETURN_GENERATED_KEYS);
+		    preparedStatement.setString(1, newModel);
+		    preparedStatement.setInt(2, make.getId());
+		    preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+				if (generatedKeys.next()) {
+					make.setId(generatedKeys.getInt(1));
+				} 
+			
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			try {
+			if (con != null) {
+				preparedStatement.close();
+				con.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return model;
 	}
 
 	public List<Model> getModels() {

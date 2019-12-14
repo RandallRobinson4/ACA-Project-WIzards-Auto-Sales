@@ -66,9 +66,22 @@ public class CarController {
 	@DELETE
 	@Path("/id/{value}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Car deleteMovieById(@PathParam("value") int id) {
+	public Car deleteCarById(@PathParam("value") int id) {
 		Car car = carService.deleteCarById(id);
 		return car;
+	}
+	
+	@DELETE
+	@Path("/make/{value}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String deleteMakeName(@PathParam("value") String makeName) {
+		return carService.deleteMakeName(makeName);
+	}
+	
+	@DELETE
+	@Path("/model/{value}")
+	public String deleteModelName(@PathParam("value") String modelName) {
+		return carService.deleteModelName(modelName);
 	}
 	
 	@POST
