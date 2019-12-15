@@ -45,7 +45,7 @@ public class CarController {
 	@GET
 	@Path("/model/{value}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Car> getCarsByModel(@PathParam("value") String modelName) {
+	public List<Car> getCarsByModelName(@PathParam("value") String modelName) {
 		return carService.getCarsByModelName(modelName);
 	}
 	
