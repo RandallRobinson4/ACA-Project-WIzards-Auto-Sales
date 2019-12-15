@@ -16,12 +16,12 @@ public class CarService {
 		return dao.getAllInventory();
 	}
 
-	public List<Car> getByModelName(String modelName) {
-		return dao.getByModelName(modelName);
+	public List<Car> getCarsByModelName(String modelName) {
+		return dao.getCarsByModelName(modelName);
 	}
 
-	public List<Car> getByMakeName(String makeName) {
-		return dao.getByMakeName(makeName);
+	public List<Car> getCarsByMakeName(String makeName) {
+		return dao.getCarsByMakeName(makeName);
 	}
 
 	public Car deleteCarById(int id) {
@@ -31,11 +31,29 @@ public class CarService {
 	}
 	
 	public String deleteMakeName(String makeName) {
+		List<Car> cars = dao.getAllInventory();
+		List<Model> models = dao.getModels();
+		for (Car element : cars) {
+			if (element.getMake().getName().equalsIgnoreCase(makeName)) {
+				CarErrorService.cannotDeleteMake();
+			} 
+		}
+		for (Model element : models) {
+			if (element.getMake().getName().equalsIgnoreCase(makeName)) {
+				CarErrorService.cannotDeleteMake();
+			}
+		}
 		dao.deleteMakeName(makeName);
 		return makeName;	
 	}
 	
 	public String deleteModelName(String modelName) {
+		List<Car> cars = dao.getAllInventory();
+		for (Car element : cars) {
+			if (element.getModel().getName().equalsIgnoreCase(modelName)) {
+				CarErrorService.cannotDeleteModel();
+			}
+		}
 		dao.deleteModelName(modelName);
 		return modelName;
 	}

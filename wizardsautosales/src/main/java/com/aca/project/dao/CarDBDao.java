@@ -88,7 +88,7 @@ public class CarDBDao {
 		
 	}
 
-	public List<Car> getByModelName(String modelName) {
+	public List<Car> getCarsByModelName(String modelName) {
 		List<Car> cars = new ArrayList<>();
 		
 		Connection con = MariaDBUtil.getConnection();
@@ -122,7 +122,7 @@ public class CarDBDao {
 		return cars;
 	}
 	
-	public List<Car> getByMakeName(String makeName) {
+	public List<Car> getCarsByMakeName(String makeName) {
 		List<Car> cars = new ArrayList<>();
 		
 		Connection con = MariaDBUtil.getConnection();
@@ -311,8 +311,49 @@ public class CarDBDao {
 	}
 
 	public Car updateCar(Car updatedCar) {
-		// TODO Auto-generated method stub
-		return null;
+		Car car = updatedCar;
+		Connection con = MariaDBUtil.getConnection();
+		PreparedStatement preparedStatement = null;
+
+		try {
+			preparedStatement = con.prepareStatement(CarSQL.UPDATECARSQL.statement());
+		    preparedStatement.setString(1, car.getColor());
+		    preparedStatement.setInt(2, car.getMileage());
+		    preparedStatement.setString(3, car.getPrice().toPlainString());
+		    preparedStatement.setInt(4, car.getAvgMPG());
+		    preparedStatement.setInt(5, car.getModelYear());
+		    preparedStatement.setInt(6, car.getMake().getId());
+		    preparedStatement.setInt(7, car.getModel().getId());
+		    preparedStatement.setString(8, car.getInteriorColor());
+		    preparedStatement.setBoolean(9, car.getCruiseControl());
+		    preparedStatement.setBoolean(10,  car.getRearCamera());
+		    preparedStatement.setBoolean(11, car.getNavigationSystem());
+		    preparedStatement.setInt(12, car.getId());
+		    
+		    preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+				if (generatedKeys.next()) {
+					car.setId(generatedKeys.getInt(1));
+				} 
+			
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			try {
+			if (con != null) {
+				preparedStatement.close();
+				con.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return car;
 	}
 
 	public Make addMake(String newmake) {

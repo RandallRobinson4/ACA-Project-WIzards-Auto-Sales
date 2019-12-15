@@ -20,7 +20,9 @@ public enum CarSQL {
 	GETMAKESSQL("SELECT make.name, make.makeId FROM make"),
 	DELETECARSQL("DELETE FROM car WHERE car.carId = ?"),
 	DELETEMAKESQL("DELETE FROM make WHERE make.name = ?"),
-	DELETEMODELSQL("DELETE FROM model WHERE model.name =?");
+	DELETEMODELSQL("DELETE FROM model WHERE model.name =?"),
+	UPDATECARSQL("UPDATE car SET color = ?, mileage = ?, price = ?, avgMPG = ?, modelYear = ?, makeId = ?, modelId = ?,"
+					+ " interiorColor = ?, cruiseControl = ?, rearCamera = ?, navigationSystem = ? WHERE carId = ?");
 	
 	private String statement;
 	

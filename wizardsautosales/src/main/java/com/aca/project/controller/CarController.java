@@ -38,15 +38,15 @@ public class CarController {
 	@GET
 	@Path("/make/{value}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Car> getByMakeName(@PathParam("value") String makeName) {
-		return carService.getByMakeName(makeName);
+	public List<Car> getCarsByMakeName(@PathParam("value") String makeName) {
+		return carService.getCarsByMakeName(makeName);
 	}
 
 	@GET
 	@Path("/model/{value}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Car> getByModel(@PathParam("value") String modelName) {
-		return carService.getByModelName(modelName);
+	public List<Car> getCarsByModel(@PathParam("value") String modelName) {
+		return carService.getCarsByModelName(modelName);
 	}
 	
 	@GET

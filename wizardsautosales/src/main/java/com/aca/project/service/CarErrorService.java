@@ -12,7 +12,7 @@ public class CarErrorService {
 		
 		public static void cannotDeleteMake() {
 			error.setId(11);
-			error.setErrorMessage("Cannot delete a make that belongs to a car in our inventory. Remove the car from the inventory first.");
+			error.setErrorMessage("Cannot delete a make if there is a car or a model that references it. Please delete the associated car or model first.");
 			throwError(error);
 		}
 		
@@ -21,5 +21,11 @@ public class CarErrorService {
 					.entity(error)
 					.build();
 				throw new WebApplicationException(response);
+		}
+
+		public static void cannotDeleteModel() {
+			error.setId(22);
+			error.setErrorMessage("Cannot delete a model if there is a car that references it. Please delete the associated car first.");
+			throwError(error);
 		}
 }
