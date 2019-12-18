@@ -17,7 +17,7 @@ import com.aca.project.model.Model;
 import com.aca.project.service.CarService;
 
 
-@Path("inventory")
+@Path("v1")
 public class CarController {
 	
 	private CarService carService = new CarService();

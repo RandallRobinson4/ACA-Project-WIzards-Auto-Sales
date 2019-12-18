@@ -3,7 +3,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <meta name="viewport" content="width=device-width, inital-scale=1">
-<title>Movie App</title>
+<title>Wizard's Auto Sales</title>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular-route.js"></script>
 
@@ -20,7 +20,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
 <script src="https://kit.fontawesome.com/31d75f68de.js" crossorigin="anonymous"></script>
-<script src="./js/movie.js"></script>
+<script src="./js/car.js"></script>
 <style>
   /* Make the image fully responsive */
   .carousel-inner img {
@@ -28,40 +28,40 @@
     height: 400px;
   }
   </style>
-  <link rel="stylesheet" type="text/css" href="CSS/movie.css">
+  <link rel="stylesheet" type="text/css" href="css/car.css">
 </head>
-<body ng-app="movieApp" ng-controller="movieController">
-	<nav class="navbar navbar-expand-sm bg-secondary navbar-dark">
-		<div class="navbar-brand">Movie App</div>
+<body ng-app="carApp" ng-controller="carController">
+	<div class="row bg-secondary">
+		<div class="col-2"></div>
+		<div class="col-2"><img src="./images/Wizardsautosales.jpg" class="mx-auto d-block img-fluid"></div>
+		<div class="col-6 logo align-self-center text-center"><h2>Wizard's Auto Sales</h2></div>
+		<div class="col-2 logo">1234 Roadhouse Lane Conway, AR 72033</br> 501-555-4444</div>
+	</div>
+	<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+		<div class="navbar-brand"><i class="fas fa-hat-wizard"></i></div>
 		<ul class="navbar-nav">
 		<li class="nav-item">
 				<a class="nav-link" href="#!welcome">Welcome</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#!search">Search</a>
+				<a class="nav-link" href="#!inventory">Inventory</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#!create">Create</a>
+				<a class="nav-link" href="#!tour">Tour</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#!advancedSearch">Advanced Search</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="#!notify">Notify</a>
+				<a class="nav-link" href="#!notify">Apprentice Club</a>
 			</li>
 		</ul>
 		<ul class="navbar-nav ml-auto">
 			<li class="nav-item">
-				<a class="nav-link" href="#!stack">Stack</a>
-			</li>
-					<li class="nav-item">
-				<a class="nav-link" href="#!resume">Resume</a>
+				<a class="nav-link" href="#!admin">Admin</a>
 			</li>
 			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Dropdown Link</a>
+				<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"><i class="fas fa-bars"></i></a>
 				<div class="dropdown-menu">
-					<a class="dropdown-item" href="#!link1">Link 1</a>
-					<a class="dropdown-item" href="#!link2">Link 2</a>
+					<a class="dropdown-item" href="#!resume">Resume</a>
+					<a class="dropdown-item" href="#!stack">Stack</a>
 				</div>
 			</li>
 		</ul>
