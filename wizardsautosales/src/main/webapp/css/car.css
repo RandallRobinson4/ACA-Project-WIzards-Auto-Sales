@@ -2,5 +2,9 @@
 
 .logo {
 	font-family: 'Source Code Pro', monospace;
-	color: blue;
+	color: navy;
+}
+
+.look {
+	font-family: 'Source Code Pro', monospace;
 }
