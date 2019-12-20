@@ -14,33 +14,60 @@
 	<div class="col-sm-4">
 			<label>Model Year</label><br>
 			<div ng-repeat="year in modelYears">
-				<label><input  type="checkbox" /> {{year}}</label>
+				<label><input  type="checkbox" ng-click="filterByModelYear(year)" ng-model="checked" ng-disabled="checked"/> {{year}}</label>
 				<br>
 			</div>
 			<hr>
 			<label>Average MPG</label><br>
 			<div ng-repeat="avg in avgMPGs">
-				<label><input type="checkbox" /> {{avg}}</label>
+				<label><input type="checkbox" ng-click="filterByAvgMPG(avg)"/> {{avg}}</label>
 				<br>
 			</div>
 			<hr>
-			<label>Color</label>
+			<label>Exterior Color</label>
 			<div ng-repeat="color in colors">
-				<label><input type="checkbox" /> {{color}}</label>
+				<label><input type="checkbox" ng-click="filterByColor(color)"/> {{color}}</label>
 				<br>
 			</div>
 			<hr>
 			<label>Interior Color</label>
 			<div ng-repeat="icolor in interiorColors">
-				<label><input type="checkbox" /> {{icolor}}</label>
+				<label><input type="checkbox" ng-click="filterByIcolor(icolor)"/> {{icolor}}</label>
 				<br>
 			</div>
 			<hr>
 			<label>Price Range</label><br>
-			<Label><input type="checkbox" /> Under $20,000</Label><br>
-			<label><input type="checkbox" /> $20,000 - $24,999</label><br>
-			<label><input type="checkbox" /> $25,000 - $29,999</label><br>
-			<label><input type="checkbox" /> Over $30,000</label>
+			<Label><input type="checkbox" ng-click="filterByPriceRange(0, 19999)"/> Under $20,000</Label><br>
+			<label><input type="checkbox" ng-click="filterByPriceRange(20000, 24999)"/> $20,000 - $24,999</label><br>
+			<label><input type="checkbox" ng-click="filterByPriceRange(25000, 29999)" /> $25,000 - $29,999</label><br>
+			<label><input type="checkbox" ng-click="filterByPriceRange(30000, 1000000)" /> Over $30,000</label>
 			<hr>
+	</div>
+	<div class="col-sm-6">
+		<div ng-repeat="car in showCars">
+			<!-- <img src="{{car.image}}"> -->
+			<label>{{car.modelYear}} {{car.make.name}} {{car.model.name}}</label>
+			<h3 class="display float-right">{{car.price}}</h3>
+			<br>
+			<table>
+				<tr>
+					<td>Mileage:</td>
+					<td>{{car.mileage}}</td>
+				</tr>
+				<tr>
+					<td>Average MPG:</td>
+					<td>{{car.avgMPG}}</td>
+				</tr>
+				<tr>
+					<td>Exterior Color:</td>
+					<td>{{car.color}}</td>
+				</tr>
+			</table>
+			<div>
+				<p>Navigation System</p><span ng-hide="{{car.navigationSystem}}"><i class="fas fa-times text-danger"></i></span><span ng-show="{{car.navigationSystem}}"><i class="fas fa-check text-success"></i></span>
+				<p>Cruise Control</p><span ng-hide="{{car.cruiseControl}}"><i class="fas fa-times text-danger"></i></span><span ng-show="{{car.cruiseControl}}"><i class="fas fa-check text-success"></i></span>
+				<p>Rear Camera</p><span ng-hide="{{car.rearCamera}}"><i class="fas fa-times text-danger"></i></span><span ng-show="{{car.rearCamera}}"><i class="fas fa-check text-success"></i></span>
+			</div>
+		</div>
 	</div>
 </div>

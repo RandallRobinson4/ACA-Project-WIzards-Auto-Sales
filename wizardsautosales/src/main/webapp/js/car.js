@@ -93,15 +93,16 @@ carApp.controller("inventoryController", function($scope, $http) {
 	    }
 	]
 	
-
+	$scope.showCars = [...$scope.cars];
 	
 	$scope.avgMPGs = [];
 	$scope.colors = [];
 	$scope.interiorColors = [];
 	$scope.modelYears = [];
+	$scope.filters = [];
 	
 	$scope.setFilterArrays = () => {
-		for(let car of $scope.cars) {
+		for (let car of $scope.cars) {
 			if (!$scope.avgMPGs.includes(car.avgMPG)) {
 				$scope.avgMPGs.push(car.avgMPG);
 			}
@@ -116,7 +117,80 @@ carApp.controller("inventoryController", function($scope, $http) {
 			}
 		};
 	}
-						
+	
+	$scope.filterByAvgMPG = (avgMPG) => {
+		$scope.filters.push("Average MPG: " + avgMPG);
+		for (let car of $scope.showCars) {
+			if(car.avgMPG == avgMPG) {
+				if (!$scope.showCars.includes(car)) {
+				$scope.showCars.push(car);
+				}
+			} else {
+				$scope.removeCar(car);
+			}
+		}
+	}
+	
+	$scope.filterByModelYear = (modelYear) => {
+		$scope.filters.push("Model Year: " + modelYear);
+		for (let car of $scope.showCars) {
+			if(car.modelYear == modelYear) {
+				if(!$scope.showCars.includes(car)) {
+					$scope.showCars.push(car);
+				}
+			} else {
+				$scope.removeCar(car);
+			}
+				
+		}
+	}
+	
+	$scope.filterByColor = (color) => {
+		$scope.filters.push("Color : " + color);
+		for (let car of $scope.showCars) {
+			if (car.color == color) {
+				if (!$scope.showCars.includes(car)) {
+					$scope.showCars.push(car);
+				}
+			} else {
+				$scope.removeCar(car);
+			}
+		}
+	}
+	
+	$scope.filterByIcolor = (icolor) => {
+		$scope.isFiltered();
+		$scope.filters.push("Interior Color: " + icolor);
+		for (let car of $scope.showCars) {
+			if (car.interiorColor == icolor) {
+				if(!$scope.showcars.includes(car)) {
+					$scope.showCars.push(car);
+				}
+			} else {
+				$scope.removeCar(car);
+			}
+		}
+	}
+	
+	$scope.filterByPriceRange = (priceRange, priceRange2) => {
+		$scope.filters.push("Price: " + priceRange);
+		for (let car of $scope.showCars) {
+			let price = car.price.parseInt();
+			if (price <= priceRange && price >= priceRange2) {
+				if (!$scope.showCars.includes(car)) {
+				$scope.showCars.push(car);
+				}
+			} else {
+				$scope.removeCar(car);
+			}
+		}
+	}
+	
+	$scope.removeCar = (car) => {
+		let index = $scope.showCars.indexOf(car);
+		$scope.showCars.splice(index, 1);
+	}
+	$scope.clearFilters
 });
 
 
