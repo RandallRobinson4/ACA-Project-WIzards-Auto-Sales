@@ -92,18 +92,18 @@ public class CarController {
 	}
 	
 	@POST
-	@Path("/make/{value}")
+	@Path("/make")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Make addMake(@PathParam("value")String newMake) {
+	public Make addMake(Make newMake) {
 		Make make = carService.addMake(newMake);
 		return make;
 	}
 	
 	@POST
-	@Path("/model/{value}")
+	@Path("/model")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Model addModel(@PathParam("value") String newModel, Make make) {
-		Model model = carService.addModel(newModel, make);
+	public Model addModel(Model newModel) {
+		Model model = carService.addModel(newModel);
 		return model;
 	}
 	

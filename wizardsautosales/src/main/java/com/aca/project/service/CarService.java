@@ -70,12 +70,12 @@ public class CarService {
 		return dao.getCarById(id);
 	}
 
-	public Make addMake(String newMake) {
+	public Make addMake(Make newMake) {
 		return dao.addMake(newMake);
 	}
 
-	public Model addModel(String newModel, Make make) {
-		return dao.addModel(newModel, make);
+	public Model addModel(Model newModel) {
+		return dao.addModel(newModel);
 	}
 
 	public List<Model> getModels() {

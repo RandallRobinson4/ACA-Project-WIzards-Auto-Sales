@@ -1,0 +1,53 @@
+<h1 class="text-center" ng-init="newCarInfo()">Add a new car to our inventory!</h1>
+<h4>Start Here:</h4>
+<div class="text-success" ng-show="carAdded">New Inventory Added! You successfully added a {{addedCar.make.name}} {{addedCar.model.name}}</div>
+<div class="container">
+	<form name="addCarToInventory">
+		<table class="table table-bordered">
+			<tr>
+				<td><label for="make">Select Make:</label><br>
+					<select ng-options="name as name.name for name in makes" required
+							ng-model="newCar.make" ng-change="getModelsByMake(newCar.make)">
+					</select>
+				</td>
+				<td>Make not shown? Add a new Make to the Make List:  <input type="text" name="newMake" ng-model="newMake.name" />  <button class="btn btn-info" ng-click="addNewMake()">Add</button></td>
+			</tr>
+			<tr ng-show="makeSelected">
+				<td><label for="model">Select Model:</label><br>
+					<select ng-options="name as name.name for name in modelsByMake" ng-required="makeSelected"
+							ng-model="newCar.model" ng-change="isModelSelected()">
+					</select>	
+				</td>	
+				<td>Model not shown? Add a new Model to the Model List:  <input type="text" name="newMake" ng-model="newModel.name" />  <button class="btn btn-info" ng-click="addNewModel(newCar.make)">Add</button></td>
+			</tr>
+			<tr ng-show="modelSelected">
+				<td><label for="avgMPG">Average MPG:</label><br>
+					<input type="number" name="avgMPG" ng-model="newCar.avgMPG" ng-required="modelSelected">
+				</td>
+				<td><label for="mileage">Mileage:</label><br>
+					<input type="number" name="mileage" ng-model="newCar.mileage" ng-required="modelSelected">
+				</td>
+				<td><label for="price">Price:</label><br>
+					<input type="number" name="price" ng-model="newCar.price" ng-required="modelSelected">
+				</td>	
+			</tr>
+			<tr ng-show="modelSelected">
+				<td><label for="color">Exterior Color:</label><br>
+					<input type="text" name="color"  ng-model="newCar.color"  ng-required="modelSelected" placeholder="exterior color">
+				</td>
+				<td><label for="interiorColor">Interior Color:</label><br>
+					<input type="text" name="interiorColor" ng-model="newCar.interiorColor" ng-required="modelSelected" placeholder="interior color">
+				</td>
+				<td><label for="modelYear">Model Year:</label><br>
+					<input type="number" name="modelYear" ng-model="newCar.modelYear" ng-required="modelSelected">
+				</td>
+			</tr>
+			<tr ng-show="modelSelected">
+				<td><label for="cruiseControl">Cruise Control: <input type="checkbox" name="cruiseControl" ng-model="newCar.cruiseControl" /></label></td>
+				<td><label for="rearCamera">Rear Camera: <input type="checkbox" name="rearCamera" ng-model="newCar.rearCamera" /></label></td>
+				<td><label for="navigationSystem">Navigation System: <input type="checkbox" name="navigationSystem" ng-model="newCar.navigationSystem" /></label></td>
+			</tr>
+		</table>
+		<button ng-show="modelSelected" class="btn btn-info float-right" ng-click="postCar()">Add Car</button>
+	</form>
+</div>

@@ -356,14 +356,14 @@ public class CarDBDao {
 		return car;
 	}
 
-	public Make addMake(String newmake) {
+	public Make addMake(Make newmake) {
 		Make make = new Make();
 		Connection con = MariaDBUtil.getConnection();
 		PreparedStatement preparedStatement = null;
 		
 		try {
 			preparedStatement = con.prepareStatement(CarSQL.ADDNEWMAKESQL.statement(), Statement.RETURN_GENERATED_KEYS);
-		    preparedStatement.setString(1, newmake);
+		    preparedStatement.setString(1, newmake.getName());
 		    preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -390,15 +390,15 @@ public class CarDBDao {
 		return make;
 	}
 
-	public Model addModel(String newModel, Make make) {
+	public Model addModel(Model newModel) {
 		Model model = new Model();
 		Connection con = MariaDBUtil.getConnection();
 		PreparedStatement preparedStatement = null;
 		
 		try {
 			preparedStatement = con.prepareStatement(CarSQL.ADDNEWMODELSQL.statement(), Statement.RETURN_GENERATED_KEYS);
-		    preparedStatement.setString(1, newModel);
-		    preparedStatement.setInt(2, make.getId());
+		    preparedStatement.setString(1, newModel.getName());
+		    preparedStatement.setInt(2, newModel.getMake().getId());
 		    preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -406,7 +406,7 @@ public class CarDBDao {
 		} finally {
 			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
 				if (generatedKeys.next()) {
-					make.setId(generatedKeys.getInt(1));
+					model.setId(generatedKeys.getInt(1));
 				} 
 			
 			} catch (SQLException e) {
