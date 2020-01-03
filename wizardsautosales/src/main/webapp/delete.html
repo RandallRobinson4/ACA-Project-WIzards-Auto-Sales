@@ -1,10 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
-</html>
+<h1 class="text-center">Remove a Car from Inventory</h1>
+<div ng-show="carDeleted" class="text-success">Car successfully deleted!</div>
+<div ng-show="incorrectDeletionId" class="text-info">Incorrect Id! Please Try Again!</div>
+<div class="container">
+	<form name="deleteCarForm">
+		<table class="table table-bordered">
+			<tr>
+				<td>Please enter the ID of the Car you wish to delete from our inventory: <input type="number" name="deletedCar" ng-model="deletedCarId" /><button class="btn btn-danger" ng-click="selectDeletedCar()">Select!</button></td>
+			</tr>
+			<tr ng-show="deletedCarSelected">
+				<td>Delete This Car? <br>
+				{{deletedCar.modelYear}} {{deletedCar.make.name}} {{deletedCar.model.name}} Id: {{deletedCar.id}}
+				<button class="btn btn-danger" ng-click="deleteCar()">Delete!</button></td>
+			</tr>
+		</table>	
+	</form>
+</div>

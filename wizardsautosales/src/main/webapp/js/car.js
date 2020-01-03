@@ -35,11 +35,11 @@ carApp.config(function($routeProvider) {
 		templateUrl : "new.html",
 		controller : "adminController"
 	})
-	.when("portal/update", {
+	.when("/portal/update", {
 		templateUrl : "update.html",
 		controller : "adminController"
 	})
-	.when("portal/delete", {
+	.when("/portal/delete", {
 		templateUrl : "delete.html",
 		controller : "adminController"
 	})
@@ -51,6 +51,13 @@ carApp.config(function($routeProvider) {
 carApp.controller("carController", function($scope, $http) {
 	
 	$scope.frontPageCarousel;
+	
+});
+
+carApp.controller("wizardsCouncilController", function($scope, $http) {
+	
+	$scope.emailSuccess = false;
+	$scope.emailFailure = false;
 	
 });
 
@@ -302,9 +309,80 @@ carApp.controller("adminController", function ($scope, $http) {
 			console.log('error, return status: ' + response.status);
 			$scope.createStatus = 'insert error, ' + response.data.message;
 			$scope.carAdded = false;
-		}
-	);
+		});
+	};
+	
+	$scope.updatedCarSelected = false;
+	$scope.carUpdated = false;
+	
+	$scope.selectUpdatedCar = () => {
+		console.log($scope.updatedCarId);
 		
-	}
+		$http.get("/wizardsautosales/inventory/v1/id/" + $scope.updatedCarId)
+		.then(
+			function success(response) {
+				$scope.updatedCar = response.data;
+				if ($scope.updatedCar.id != 0) {
+				$scope.updatedCarSelected = true;
+					$scope.incorrectUpdateId = false;
+				} else {
+					$scope.incorrectUpdateId = true;
+				}
+			},
+			function error(response) {
+				console.log("error, return status: " + response.status)
+			}
+		);
+	};
+	
+	$scope.updateCar = () => {
+		console.log($scope.updatedCar)
+		$scope.body = angular.toJson($scope.updatedCar, false);
 		
+		$http.put("/wizardsautosales/inventory/v1", $scope.body)
+		.then(
+			function success(response) {
+				$scope.carUpdated = true;
+				$scope.updatedCarSelected = false;
+			}, 
+			function failure(response) {
+				$scope.updateStatus = "Update Error, " + response.data.message;
+			});
+	};
+	
+	$scope.deletedCarSelected = false;
+	$scope.carDeleted = false;
+	$scope.incorrectDeletionId = false;
+	
+	$scope.selectDeletedCar = () => {
+		$http.get("/wizardsautosales/inventory/v1/id/" + $scope.deletedCarId)
+		.then(
+			function success(response) {
+			$scope.deletedCar = response.data;
+			console.log($scope.deletedCar.id)
+			if ($scope.deletedCar.id != 0) {
+				$scope.deletedCarSelected = true;
+				$scope.incorrectDeletionId = false;
+			} else {
+				$scope.incorrectDeletionId = true;
+			}
+		},
+		function error(response) {
+			console.log("error, return status: " + response.status)
+		});
+	};
+	
+	$scope.deleteCar = () => {
+		$http.delete("/wizardsautosales/inventory/v1/id/" + $scope.deletedCar.id)
+		.then(
+			function success(response) {
+				$scope.carDeleted = true;
+				$scope.deletedCarSelected = false;
+			},
+			function error(response) {
+				console.log("error, return status: " + response.status)
+			});
+	};
+	
+	
 });

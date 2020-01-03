@@ -1,10 +1,46 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<h1 class="text-center">Update a Car's Information</h1>
+<div ng-show="carUpdated" class="text-success">Car successfully updated!</div>
+<div ng-show="incorrectUpdateId" class="text-info">Incorrect Id! Please Try Again!</div>
+<div class="container">
+	<form name="updateCarForm">
+		<table class="table table-bordered">
+			<tr>
+				<td>Please enter the ID number for the car you wish to update: <input type="number" name="updatedCar" ng-model="updatedCarId" /><button class="btn btn-warning" ng-click="selectUpdatedCar()">Select!</button></td>
+			</tr>
+			<tr ng-show="updatedCarSelected">
+				<td class="text-center">Please update the appropriate info and submit!</td>
+			</tr>
+			<tr ng-show="updatedCarSelected">
+				<td><label for="avgMPG">Average MPG:</label><br>
+					<input type="number" name="avgMPG" ng-model="updatedCar.avgMPG" ng-required="updatedCarSelected">
+				</td>
+				<td><label for="mileage">Mileage:</label><br>
+					<input type="number" name="mileage" ng-model="updatedCar.mileage" ng-required="updatedCarSelected">
+				</td>
+				<td><label for="price">Price:</label><br>
+					<input type="number" name="price" ng-model="updatedCar.price" ng-required="updatedCarSelected">
+				</td>	
+			</tr>
+			<tr ng-show="updatedCarSelected">
+				<td><label for="color">Exterior Color:</label><br>
+					<input type="text" name="color"  ng-model="updatedCar.color"  ng-required="updatedCarSelected" >
+				</td>
+				<td><label for="interiorColor">Interior Color:</label><br>
+					<input type="text" name="interiorColor" ng-model="updatedCar.interiorColor" ng-required="updatedCarSelected" >
+				</td>
+				<td><label for="modelYear">Model Year:</label><br>
+					<input type="number" name="modelYear" ng-model="updatedCar.modelYear" ng-required="updatedCarSelected">
+				</td>
+			</tr>
+			<tr ng-show="updatedCarSelected">
+				<td><label for="cruiseControl">Cruise Control: <input type="checkbox" name="cruiseControl" ng-model="updatedCar.cruiseControl" /></label></td>
+				<td><label for="rearCamera">Rear Camera: <input type="checkbox" name="rearCamera" ng-model="updatedCar.rearCamera" /></label></td>
+				<td><label for="navigationSystem">Navigation System: <input type="checkbox" name="navigationSystem" ng-model="updatedCar.navigationSystem" /></label></td>
+			</tr>		
+		</table>
+	<button ng-show="updatedCarSelected" class="btn btn-warning" ng-click="updateCar()">Submit!</button>
+	</form>
 
-</body>
-</html>
+
+
+</div>

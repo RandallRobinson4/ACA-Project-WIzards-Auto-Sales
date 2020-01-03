@@ -1,0 +1,16 @@
+<div class="container">
+	<h1 class="text-center">Sign up for our Wizard's Council!</h1>
+	<h2 class="text-center">Get notified about our new Cars!</h2>
+	
+	<h4 class="text-center text-success" ng-show="emailSuccess">You are signed up!</h4>
+	<h4 class="text-center text-danger" ng-show="emailFailure">Sign up unsuccessful. Please try again.</h4>
+	<h4 class="text-center">Enter your email address to sign-up for notifications! You will receive an email whenever we have additions to our inventory!</h4>
+</div>
+<div class="row">
+	<div class="col-sm-4"></div>
+	<div class="col-sm-4">
+		<input type="email"  required ng-model="councilEmail" ng-click="councilSignUp()" /> <br><br>
+		<button class="btn btn-info">Sign up!</button>
+	</div>
+	<div class="col-sm-4"></div>
+</div>
