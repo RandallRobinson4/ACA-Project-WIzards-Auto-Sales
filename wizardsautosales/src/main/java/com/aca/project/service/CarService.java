@@ -59,6 +59,7 @@ public class CarService {
 	}
 
 	public Car addCar(Car newCar) {
+		SnsPublish.publishNewCar(newCar);
 		return dao.addCar(newCar);
 	}
 
@@ -84,6 +85,10 @@ public class CarService {
 
 	public List<Make> getMakes() {
 		return dao.getMakes();
+	}
+	
+	public void subscribeEmail(String email) {
+		SnsPublish.emailSubscribe(email);
 	}
 
 }

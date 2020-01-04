@@ -59,6 +59,18 @@ carApp.controller("wizardsCouncilController", function($scope, $http) {
 	$scope.emailSuccess = false;
 	$scope.emailFailure = false;
 	
+	$scope.subscribeEmail = () => {
+		console.log($scope.emailAddress)
+		$http.get("/wizardsautosales/inventory/v1/email/" + $scope.emailAddress).
+		then(function(response) {
+			$scope.emailSuccess = true;
+			$scope.emailAddress = "";
+		}, function(response) {
+			$scope.emailFailure = true;
+			$scope.emailAddress = "";
+		})
+	}
+	
 });
 
 carApp.controller("inventoryController", function($scope, $http) {

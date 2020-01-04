@@ -63,6 +63,13 @@ public class CarController {
 		return carService.getMakes();
 	}
 	
+	@GET
+	@Path("/email/{value}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public void subscribeEmail(@PathParam("value") String email) {
+		carService.subscribeEmail(email);
+	}
+	
 	@DELETE
 	@Path("/id/{value}")
 	@Produces(MediaType.APPLICATION_JSON)
