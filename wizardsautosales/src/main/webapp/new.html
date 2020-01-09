@@ -10,7 +10,7 @@
 							ng-model="newCar.make" ng-change="getModelsByMake(newCar.make)">
 					</select>
 				</td>
-				<td>Make not shown? Add a new Make to the Make List:  <input type="text" name="newMake" ng-model="newMake.name" />  <button class="btn btn-info" ng-click="addNewMake()">Add</button></td>
+				<td>Make not shown? Add a new Make to the Make List:<br>  <input type="text" name="newMake" ng-model="newMake.name" />  <button class="btn btn-info" ng-click="addNewMake()">Add</button></td>
 			</tr>
 			<tr ng-show="makeSelected">
 				<td><label for="model">Select Model:</label><br>

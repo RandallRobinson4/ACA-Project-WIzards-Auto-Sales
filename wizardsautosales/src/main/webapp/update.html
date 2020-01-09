@@ -1,14 +1,29 @@
-<h1 class="text-center">Update a Car's Information</h1>
+<h1 class="text-center">Update a Car's Information</h1><br>
 <div ng-show="carUpdated" class="text-success">Car successfully updated!</div>
 <div ng-show="incorrectUpdateId" class="text-info">Incorrect Id! Please Try Again!</div>
-<div class="container">
+<div class="container" ng-init="getCars()">
 	<form name="updateCarForm">
-		<table class="table table-bordered">
-			<tr>
-				<td>Please enter the ID number for the car you wish to update: <input type="number" name="updatedCar" ng-model="updatedCarId" /><button class="btn btn-warning" ng-click="selectUpdatedCar()">Select!</button></td>
-			</tr>
+		<h3 class="text-center">You can enter a Car's ID to update it, or select a Car from the list.</h3><br>
+			<div class="row">
+				<div class="col-sm-5">
+				<h4>You can enter a Car's ID to update it:</h4>
+					ID: <input type="number" name="updatedCar" ng-model="updatedCarId" /><button class="btn btn-warning" ng-click="selectUpdatedCar(updatedCarId)">Select!</button>
+				</div>
+				<div class="col-sm-2">
+					<h2>OR</h2>
+				</div>
+				<div class="col-sm-5">
+				<h4>Select a Car from our inventory:</h4>
+					<div ng-repeat="car in allCars" class="align-right">
+						{{car.modelYear}} {{car.make.name}} {{car.model.name}} <button class="btn btn-warning" ng-click="selectUpdatedCar(car.id)">Select!</button>
+						<p></p>
+					</div>
+				</div>
+			</div>
+			<div class="table-responsive">
+			<table class="table table-bordered">
 			<tr ng-show="updatedCarSelected">
-				<td class="text-center">Please update the appropriate info and submit!</td>
+				<td class="h5">Please update the appropriate info and submit!</td>
 			</tr>
 			<tr ng-show="updatedCarSelected">
 				<td><label for="avgMPG">Average MPG:</label><br>
@@ -38,6 +53,7 @@
 				<td><label for="navigationSystem">Navigation System: <input type="checkbox" name="navigationSystem" ng-model="updatedCar.navigationSystem" /></label></td>
 			</tr>		
 		</table>
+		</div>
 	<button ng-show="updatedCarSelected" class="btn btn-warning" ng-click="updateCar()">Submit!</button>
 	</form>
 

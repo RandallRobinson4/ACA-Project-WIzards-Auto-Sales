@@ -43,6 +43,10 @@ carApp.config(function($routeProvider) {
 		templateUrl : "delete.html",
 		controller : "adminController"
 	})
+	.when("/portal/deletemodelmake", {
+		templateUrl : "deletemodelmake.html",
+		controller : "adminController"
+	})
 	.otherwise({
 		templateUrl : "welcome.html"
 	});
@@ -81,6 +85,7 @@ carApp.controller("inventoryController", function($scope, $http) {
 	$scope.interiorColors = [];
 	$scope.modelYears = [];
 	$scope.filters = [];
+	$scope.removeableIndexes = [];
 	
 	$scope.getCars = () => {
 		$http.get("/wizardsautosales/inventory/v1").
@@ -88,9 +93,8 @@ carApp.controller("inventoryController", function($scope, $http) {
 			$scope.showCars = response.data;
 			$scope.setFilterArrays();
 		}, function(response) {
-			console.log("error http get movies" + response.status);
+			console.log("error http get cars " + response.status);
 		});
-		
 	}
 	
 	$scope.setFilterArrays = () => {
@@ -98,16 +102,15 @@ carApp.controller("inventoryController", function($scope, $http) {
 		$scope.colors.length = 0;
 		$scope.interiorColors.length = 0;
 		$scope.modelYears.length = 0;
-		
 		for (let car of $scope.showCars) {
 			if (!$scope.avgMPGs.includes(car.avgMPG)) {
 				$scope.avgMPGs.push(car.avgMPG);
 			}
-			if (!$scope.colors.includes(car.color)) {
-				$scope.colors.push(car.color);
+			if (!$scope.colors.includes(car.color.toLowerCase())) {
+				$scope.colors.push(car.color.toLowerCase());
 			}
-			if (!$scope.interiorColors.includes(car.interiorColor)) {
-				$scope.interiorColors.push(car.interiorColor);
+			if (!$scope.interiorColors.includes(car.interiorColor.toLowerCase())) {
+				$scope.interiorColors.push(car.interiorColor.toLowerCase());
 			}
 			if (!$scope.modelYears.includes(car.modelYear)) {
 				$scope.modelYears.push(car.modelYear);
@@ -116,6 +119,7 @@ carApp.controller("inventoryController", function($scope, $http) {
 	}
 	
 	$scope.filterByAvgMPG = (avgMPG) => {
+		$scope.isMpgChecked = true;
 		$scope.filters.push("Average MPG: " + avgMPG);
 		for (let car of $scope.showCars) {
 			if(car.avgMPG == avgMPG) {
@@ -123,56 +127,65 @@ carApp.controller("inventoryController", function($scope, $http) {
 				$scope.showCars.push(car);
 				}
 			} else {
-				$scope.removeCar(car);
+				$scope.removeableIndexes.push($scope.showCars.indexOf(car));
 			}
 		}
+		$scope.removeCars();
 		$scope.setFilterArrays();
 	}
 	
 	$scope.filterByModelYear = (modelYear) => {
 		$scope.filters.push("Model Year: " + modelYear);
+		$scope.isModelChecked = true;
 		for (let car of $scope.showCars) {
 			if(car.modelYear == modelYear) {
 				if(!$scope.showCars.includes(car)) {
 					$scope.showCars.push(car);
 				}
 			} else {
-				$scope.removeCar(car);
+				$scope.removeableIndexes.push($scope.showCars.indexOf(car));
 			}		
 		}
+		$scope.removeCars();
 		$scope.setFilterArrays();
 	}
 	
 	$scope.filterByColor = (color) => {
+		$scope.isColorChecked = true;
+		color = color.toLowerCase()
 		$scope.filters.push("Color : " + color);
 		for (let car of $scope.showCars) {
-			if (car.color == color) {
+			if (car.color.toLowerCase() == color) {
 				if (!$scope.showCars.includes(car)) {
 					$scope.showCars.push(car);
 				}
 			} else {
-				$scope.removeCar(car);
+				$scope.removeableIndexes.push($scope.showCars.indexOf(car));
 			}
 		}
+		$scope.removeCars();
 		$scope.setFilterArrays();
 	}
 	
 	$scope.filterByIcolor = (icolor) => {
-		$scope.isFiltered();
+		$scope.isIcolorChecked = true;
+		icolor = icolor.toLowerCase();
 		$scope.filters.push("Interior Color: " + icolor);
 		for (let car of $scope.showCars) {
-			if (car.interiorColor == icolor) {
-				if(!$scope.showcars.includes(car)) {
+			if (car.interiorColor.toLowerCase() == icolor) {
+				if(!$scope.showCars.includes(car)) {
 					$scope.showCars.push(car);
 				}
 			} else {
-				$scope.removeCar(car);
+				$scope.removeableIndexes.push($scope.showCars.indexOf(car));
 			}
 		}
+		$scope.removeCars();
 		$scope.setFilterArrays();
 	}
 	
 	$scope.filterByPriceRange = (priceRange, priceRange2) => {
+		$scope.isPriceChecked = true;
 		let priceFilterName = null;
 		switch (priceRange) {
 		case 0:
@@ -199,20 +212,23 @@ carApp.controller("inventoryController", function($scope, $http) {
 				$scope.showCars.push(car);
 				}
 			} else {
-				$scope.removeCar(car);
+				$scope.removeableIndexes.push($scope.showCars.indexOf(car));
 			}
 		}
+		$scope.removeCars();
 		$scope.setFilterArrays();
 	}
 	
-	$scope.removeCar = (car) => {
-		let index = $scope.showCars.indexOf(car);
-		$scope.showCars.splice(index, 1);
+	$scope.removeCars = (car) => {
+		let reverse = $scope.removeableIndexes.reverse()
+		for (index of reverse) {
+			$scope.showCars.splice(index, 1);
+		}
+		$scope.removeableIndexes.length = 0;
 	}
 	
 	$scope.clearFilters = () => {
-		$scope.getCars();
-		$scope.filters.length = 0;
+		location.reload();
 	}
 });
 
@@ -326,11 +342,19 @@ carApp.controller("adminController", function ($scope, $http) {
 	
 	$scope.updatedCarSelected = false;
 	$scope.carUpdated = false;
+	$scope.allCars = [];
 	
-	$scope.selectUpdatedCar = () => {
-		console.log($scope.updatedCarId);
-		
-		$http.get("/wizardsautosales/inventory/v1/id/" + $scope.updatedCarId)
+	$scope.getCars = () => {
+		$http.get("/wizardsautosales/inventory/v1").
+		then(function(response) {
+			$scope.allCars = response.data;
+		}, function(response) {
+			console.log("error http get cars " + response.status);
+		});
+	}
+	
+	$scope.selectUpdatedCar = (id) => {
+		$http.get("/wizardsautosales/inventory/v1/id/" + id)
 		.then(
 			function success(response) {
 				$scope.updatedCar = response.data;
@@ -366,12 +390,11 @@ carApp.controller("adminController", function ($scope, $http) {
 	$scope.carDeleted = false;
 	$scope.incorrectDeletionId = false;
 	
-	$scope.selectDeletedCar = () => {
-		$http.get("/wizardsautosales/inventory/v1/id/" + $scope.deletedCarId)
+	$scope.selectDeletedCar = (id) => {
+		$http.get("/wizardsautosales/inventory/v1/id/" + id)
 		.then(
 			function success(response) {
 			$scope.deletedCar = response.data;
-			console.log($scope.deletedCar.id)
 			if ($scope.deletedCar.id != 0) {
 				$scope.deletedCarSelected = true;
 				$scope.incorrectDeletionId = false;
@@ -396,5 +419,45 @@ carApp.controller("adminController", function ($scope, $http) {
 			});
 	};
 	
+	$scope.makesToDelete = [];
+	$scope.modelsToDelete = [];
+	
+	$scope.deleteMakeAndModelSetup = () => {
+		$scope.newCarInfo();
+		$http.get("/wizardsautosales/inventory/v1").
+		then(function(response) {
+			$scope.allCars = response.data;
+			$http.get("/wizardsautosales/inventory/v1/makes").
+			then(function(response) {
+				$scope.makes = response.data;
+				console.log($scope.makes)
+				$http.get("/wizardsautosales/inventory/v1/models").
+				then(function(response) {
+					$scope.allModels = response.data;
+					console.log("all cars: " + $scope.allCars);
+					for (let car of $scope.allCars) {
+						for (let make of $scope.makes) {
+							console.log(make.name);
+							console.log(car.make.name);
+							if(make.name === car.make.name) {
+								continue;
+							} else {
+								$scope.makesToDelete.push(make);
+								console.log($scope.makesToDelete)
+							}
+						}
+					}
+				}, function(response) {
+					console.log("error http get models" + response.status);
+				});
+			}, function(response) {
+				console.log("error http get makes" + response.status);
+			});
+
+		}, function(response) {
+			console.log("error http get cars " + response.status);
+		});
+
+	}
 	
 });

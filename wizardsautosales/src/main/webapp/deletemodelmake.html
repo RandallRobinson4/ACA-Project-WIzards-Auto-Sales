@@ -1,0 +1,32 @@
+<h1 class="text-center">Remove a make or model from our lists</h1>
+<div ng-show="carDeleted" class="text-success">Make/Model successfully deleted!</div>
+<div ng-show="incorrectDeletionId" class="text-info">Unsuccessfull! Please Try Again!</div>
+<div class="container" ng-init="deleteMakeAndModelSetup()">
+	<form name="deleteCarForm">
+	<h3 class="text-center">Select a make or model from our lists below to delete it. Deleting a make will delete all associated models.</h3><br>
+	<h3 class="text-center text-danger"></h3>
+			<div class="row">
+				<div class="col-sm-5">
+				<h4>Select a Make:</h4>
+					<div ng-repeat="make in makesToDelete" class="align-right">
+						{{make.name}} <button class="btn btn-danger" ng-click="selectDeletedMake(make.id)">Select!</button>
+						<p></p>
+					</div>				</div>
+				<div class="col-sm-2">
+					<h2>OR</h2>
+				</div>
+				<div class="col-sm-5">
+				<h4>Select a Model:</h4>
+					<div ng-repeat="model in allModels" class="align-right">
+						{{model.name}} <button class="btn btn-danger" ng-click="selectDeletedModel(model.id)">Select!</button>
+						<p></p>
+					</div>
+				</div>
+			</div>
+			<div ng-show="deletedCarSelected">
+				<td>Delete This ? <br>
+				{{deletedCar.modelYear}} {{deletedCar.make.name}} {{deletedCar.model.name}} Id: {{deletedCar.id}}
+				<button class="btn btn-danger" ng-click="deleteCar()">Delete!</button></td>
+			</div>
+	</form>
+</div>

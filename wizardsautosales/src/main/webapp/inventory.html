@@ -4,10 +4,10 @@
 	</div><hr>
 
 <div class="row">
-	<div class=col-sm-1></div>
-	<div class=col-sm-2>Search Filters</div>
+	<div class="col-sm-1"></div>
+	<div class="col-sm-2"><h4>Search Filters</h4></div>
 	<div class=col-sm-6>
-		{{showCars.length}} Vehicle(s) matching: 
+		<h4>{{showCars.length}} Vehicle(s) matching: </h4>
 		<button ng-repeat="filter in filters" class="btn btn-success">{{filter}}</button>
 	</div>
 	<div class="col-sm-1"></div>
@@ -15,61 +15,53 @@
 <div class="row">
 	<div class="col-sm-1"></div>
 	<div class="col-sm-2">
-			<label>Model Year</label><br>
-			<div ng-repeat="year in modelYears">
-				<label><input  type="checkbox" ng-click="filterByModelYear(year)" ng-model="modelChecked" ng-disabled="modelChecked"/> {{year}}</label>
+			<label class="font-weight-bold logo">Model Year</label><br>
+			<div ng-repeat="year in modelYears | orderBy">
+				<label><input  type="checkbox"  ng-click="filterByModelYear(year)" ng-model="modelChecked" ng-disabled="isModelChecked"/> {{year}}</label>
 				<br>
 			</div>
 			<hr>
-			<label>Average MPG</label><br>
-			<div ng-repeat="avg in avgMPGs">
-				<label><input type="checkbox" ng-click="filterByAvgMPG(avg)" ng-model="mpgChecked" ng-disabled="mpgChecked"/> {{avg}}</label>
+			<label class="font-weight-bold logo">Average MPG</label><br>
+			<div ng-repeat="avg in avgMPGs | orderBy">
+				<label><input type="checkbox"  ng-click="filterByAvgMPG(avg)" ng-model="mpgChecked" ng-disabled="isMpgChecked"/> {{avg}}</label>
+				<br>    
+			</div>
+			<hr>
+			<label class="font-weight-bold logo">Exterior Color</label>
+			<div ng-repeat="color in colors | orderBy">
+				<label><input type="checkbox"   ng-click="filterByColor(color)" ng-model="colorChecked" ng-disabled="isColorChecked"/> {{color}}</label>
 				<br>
 			</div>
 			<hr>
-			<label>Exterior Color</label>
-			<div ng-repeat="color in colors">
-				<label><input type="checkbox" ng-click="filterByColor(color)" ng-model="colorChecked" ng-disabled="colorChecked"/> {{color}}</label>
+			<label class="font-weight-bold logo">Interior Color</label>
+			<div ng-repeat="icolor in interiorColors | orderBy">
+				<label><input type="checkbox"  ng-click="filterByIcolor(icolor)" ng-model="icolorChecked" ng-disabled="isIcolorChecked"/> {{icolor}}</label>
 				<br>
 			</div>
 			<hr>
-			<label>Interior Color</label>
-			<div ng-repeat="icolor in interiorColors">
-				<label><input type="checkbox" ng-click="filterByIcolor(icolor)" ng-model="icolorChecked" ng-disabled="icolorChecked"/> {{icolor}}</label>
-				<br>
-			</div>
-			<hr>
-			<label ng-hide="priceChecked">Price Range</label><br>
-			<Label ng-hide="priceChecked"><input type="checkbox" ng-click="filterByPriceRange(0, 19999)" ng-model="priceChecked"  /> Under $20,000</Label><br>
-			<label ng-hide="priceChecked"><input type="checkbox" ng-click="filterByPriceRange(20000, 24999)" ng-model="priceChecked" /> $20,000 - $24,999</label><br>
-			<label ng-hide="priceChecked"><input type="checkbox" ng-click="filterByPriceRange(25000, 29999)" ng-model="priceChecked" /> $25,000 - $29,999</label><br>
-			<label ng-hide="priceChecked"><input type="checkbox" ng-click="filterByPriceRange(30000, 1000000)" ng-model="priceChecked" /> Over $30,000</label>
+			<label class="font-weight-bold logo">Price Range</label><br>
+			<Label ng-hide="priceChecked"><input type="checkbox" ng-click="filterByPriceRange(0, 19999)" ng-model="isPriceChecked"  /> Under $20,000</Label><br>
+			<label ng-hide="priceChecked"><input type="checkbox" ng-click="filterByPriceRange(20000, 24999)" ng-model="isPriceChecked" /> $20,000 - $24,999</label><br>
+			<label ng-hide="priceChecked"><input type="checkbox" ng-click="filterByPriceRange(25000, 29999)" ng-model="isPriceChecked" /> $25,000 - $29,999</label><br>
+			<label ng-hide="priceChecked"><input type="checkbox" ng-click="filterByPriceRange(30000, 1000000)" ng-model="isPriceChecked" /> Over $30,000</label>
 			<hr>
 	</div>
 	<div class="col-sm-6">
 		<div ng-repeat="car in showCars">
-			<!-- <img src="{{car.image}}"> -->
-			<label>{{car.modelYear}} {{car.make.name}} {{car.model.name}}</label>
-			<h3 class="display float-right">{{car.price}}</h3>
-			<br>
-			<table>
-				<tr>
-					<td>Mileage:</td>
-					<td>{{car.mileage}}</td>
-				</tr>
-				<tr>
-					<td>Average MPG:</td>
-					<td>{{car.avgMPG}}</td>
-				</tr>
-				<tr>
-					<td>Exterior Color:</td>
-					<td>{{car.color}}</td>
-				</tr>
-			</table>
+			<hr class="logo">
+			<h2 class="float-left font-weight-bold logo">{{car.modelYear}} {{car.make.name}} {{car.model.name}}</h2>
+			<h3 class="float-right">${{car.price}}</h3>
 			<div>
-				<p>Navigation System</p><span ng-hide="{{car.navigationSystem}}"><i class="fas fa-times text-danger"></i></span><span ng-show="{{car.navigationSystem}}"><i class="fas fa-check text-success"></i></span>
-				<p>Cruise Control</p><span ng-hide="{{car.cruiseControl}}"><i class="fas fa-times text-danger"></i></span><span ng-show="{{car.cruiseControl}}"><i class="fas fa-check text-success"></i></span>
-				<p>Rear Camera</p><span ng-hide="{{car.rearCamera}}"><i class="fas fa-times text-danger"></i></span><span ng-show="{{car.rearCamera}}"><i class="fas fa-check text-success"></i></span>
+			<br><br>
+				Mileage: {{car.mileage}} <br>
+				Average MPG: {{car.avgMPG}} <br>
+				Exterior Color: {{car.color}} <br>
+				Interior Color: {{car.interiorColor}}<br>	
+			</div>
+			<div>
+				Navigation System <span ng-hide="{{car.navigationSystem}}"><i class="fas fa-times text-danger"></i></span><span ng-show="{{car.navigationSystem}}"><i class="fas fa-check text-success"></i></span>
+				|  Cruise Control <span ng-hide="{{car.cruiseControl}}"><i class="fas fa-times text-danger"></i></span><span ng-show="{{car.cruiseControl}}"><i class="fas fa-check text-success"></i></span>
+				|  Rear Camera <span ng-hide="{{car.rearCamera}}"><i class="fas fa-times text-danger"></i></span><span ng-show="{{car.rearCamera}}"><i class="fas fa-check text-success"></i></span>
 			</div>
 		</div>
 	</div>

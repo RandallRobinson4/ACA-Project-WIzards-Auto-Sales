@@ -8,3 +8,7 @@
 .look {
 	font-family: 'Source Code Pro', monospace;
 }
+
+hr {
+	border:  1px solid navy
+}
