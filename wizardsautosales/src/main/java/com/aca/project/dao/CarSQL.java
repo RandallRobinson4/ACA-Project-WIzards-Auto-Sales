@@ -22,7 +22,9 @@ public enum CarSQL {
 	DELETEMAKESQL("DELETE FROM make WHERE make.name = ?"),
 	DELETEMODELSQL("DELETE FROM model WHERE model.name =?"),
 	UPDATECARSQL("UPDATE car SET color = ?, mileage = ?, price = ?, avgMPG = ?, modelYear = ?, makeId = ?, modelId = ?,"
-					+ " interiorColor = ?, cruiseControl = ?, rearCamera = ?, navigationSystem = ? WHERE carId = ?");
+					+ " interiorColor = ?, cruiseControl = ?, rearCamera = ?, navigationSystem = ? WHERE carId = ?"),
+	GETUNUSEDMAKES("SELECT make.name, make.makeid FROM Make WHERE NOT EXISTS (SELECT car.makeid FROM car  WHERE car.makeid = make.makeid) AND NOT EXISTS (SELECT model.makeId FROM model WHERE model.makeid = make.makeid)"),
+	GETUNUSEDMODELS("SELECT model.name, make.name, model.modelId, make.makeId FROM model INNER JOIN make ON model.makeId = make.makeId WHERE model.modelId NOT IN (SELECT car.modelId FROM car)");
 	
 	private String statement;
 	

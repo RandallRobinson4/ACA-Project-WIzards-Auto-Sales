@@ -1,0 +1,18 @@
+<div class="text-center" ng-init="selectedCarGet()">
+<h1 class="display1">{{selectedCar.modelYear}}  {{selectedCar.make.name}} {{selectedCar.model.name}}</h1>
+<h3 class="font-weight-bold display-2">${{selectedCar.price}}</h3>
+			<div class="">
+			<br><br>
+				Mileage: {{selectedCar.mileage}} <br>
+				Average MPG: {{selectedCar.avgMPG}} <br>
+				Exterior Color: {{selectedCar.color}} <br>
+				Interior Color: {{selectedCar.interiorColor}}<br>	
+			</div>
+			<div>
+				Navigation System <span ng-hide="{{selecedCar.navigationSystem}}"><i class="fas fa-times text-danger"></i></span><span ng-show="{{sleectedCar.navigationSystem}}"><i class="fas fa-check text-success"></i></span>
+				|  Cruise Control <span ng-hide="{{selectedCar.cruiseControl}}"><i class="fas fa-times text-danger"></i></span><span ng-show="{{selectedCar.cruiseControl}}"><i class="fas fa-check text-success"></i></span>
+				|  Rear Camera <span ng-hide="{{selectedCar.rearCamera}}"><i class="fas fa-times text-danger"></i></span><span ng-show="{{selectedCar.rearCamera}}"><i class="fas fa-check text-success"></i></span>
+			</div>
+
+<img class="rounded mx-auto d-block" src="./images/car5.jpg">
+</div>

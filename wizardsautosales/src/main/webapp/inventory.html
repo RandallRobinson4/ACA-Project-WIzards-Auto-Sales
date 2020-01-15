@@ -1,8 +1,8 @@
-<br><div class="self-align-center text-center" ng-init="getCars()">
-		<h1>Wizard's Inventory!</h1>
-		<button ng-click="clearFilters()" class="btn btn-danger">Reset Filters</button>
-	</div><hr>
-
+<div class="self-align-center text-center" ng-init="getCars()">
+	<h1>Wizard's Inventory!</h1>
+	<button ng-click="clearFilters()" class="btn btn-danger">Reset Filters</button>
+</div>
+<hr>
 <div class="row">
 	<div class="col-sm-1"></div>
 	<div class="col-sm-2"><h4>Search Filters</h4></div>
@@ -40,17 +40,17 @@
 			</div>
 			<hr>
 			<label class="font-weight-bold logo">Price Range</label><br>
-			<Label ng-hide="priceChecked"><input type="checkbox" ng-click="filterByPriceRange(0, 19999)" ng-model="isPriceChecked"  /> Under $20,000</Label><br>
-			<label ng-hide="priceChecked"><input type="checkbox" ng-click="filterByPriceRange(20000, 24999)" ng-model="isPriceChecked" /> $20,000 - $24,999</label><br>
-			<label ng-hide="priceChecked"><input type="checkbox" ng-click="filterByPriceRange(25000, 29999)" ng-model="isPriceChecked" /> $25,000 - $29,999</label><br>
-			<label ng-hide="priceChecked"><input type="checkbox" ng-click="filterByPriceRange(30000, 1000000)" ng-model="isPriceChecked" /> Over $30,000</label>
+			<label ng-hide="isPrice1Checked"><input type="checkbox" ng-click="filterByPriceRange(0, 19999)" ng-model="isPriceChecked" ng-disabled="isPriceChecked"/> Under $20,000</label><br>
+			<label ng-hide="isPrice2Checked"><input type="checkbox" ng-click="filterByPriceRange(20000, 24999)" ng-model="isPriceChecked" ng-disabled="isPriceChecked"/> $20,000 - $24,999</label><br>
+			<label ng-hide="isPrice3Checked"><input type="checkbox" ng-click="filterByPriceRange(25000, 29999)" ng-model="isPriceChecked" ng-disabled="isPriceChecked"/> $25,000 - $29,999</label><br>
+			<label ng-hide="isPrice4Checked"><input type="checkbox" ng-click="filterByPriceRange(30000, 1000000)" ng-model="isPriceChecked" ng-disabled="isPriceChecked"/> Over $30,000</label>
 			<hr>
 	</div>
 	<div class="col-sm-6">
 		<div ng-repeat="car in showCars">
 			<hr class="logo">
-			<h2 class="float-left font-weight-bold logo">{{car.modelYear}} {{car.make.name}} {{car.model.name}}</h2>
-			<h3 class="float-right">${{car.price}}</h3>
+			<div class="nav-link"  ng-click="getCarById(car.id)"><h2 class="float-left font-weight-bold logo selectcar">{{car.modelYear}} {{car.make.name}} {{car.model.name}}</h2></div>
+			<h3 class="float-right font-weight-bold">${{car.price}}</h3>
 			<div>
 			<br><br>
 				Mileage: {{car.mileage}} <br>

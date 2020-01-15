@@ -70,6 +70,20 @@ public class CarController {
 		carService.subscribeEmail(email);
 	}
 	
+	@GET
+	@Path("/unusedmakes")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Make> getUnusedMakes() {
+		return carService.getUnusedMakes();
+	}
+	
+	@GET
+	@Path("/unusedmodels")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Model> getUnusedModels() {
+		return carService.getUnusedModels();
+	}
+	
 	@DELETE
 	@Path("/id/{value}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -81,14 +95,16 @@ public class CarController {
 	@DELETE
 	@Path("/make/{value}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String deleteMakeName(@PathParam("value") String makeName) {
-		return carService.deleteMakeName(makeName);
+	public Make deleteMakeName(@PathParam("value") String makeName) {
+		 carService.deleteMakeName(makeName);
+		return new Make();
 	}
 	
 	@DELETE
 	@Path("/model/{value}")
-	public String deleteModelName(@PathParam("value") String modelName) {
-		return carService.deleteModelName(modelName);
+	public Model deleteModelName(@PathParam("value") String modelName) {
+		carService.deleteModelName(modelName);
+		return new Model();
 	}
 	
 	@POST

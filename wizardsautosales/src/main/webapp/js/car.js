@@ -1,6 +1,5 @@
 let carApp = angular.module("carApp", ["ngRoute"]);
 
-
 carApp.config(function($routeProvider) {
 	$routeProvider
 	.when("/inventory", {
@@ -47,15 +46,17 @@ carApp.config(function($routeProvider) {
 		templateUrl : "deletemodelmake.html",
 		controller : "adminController"
 	})
+	.when("/inventory/car", {
+		templateUrl : "car.html",
+		controller : "inventoryController"
+	})
 	.otherwise({
 		templateUrl : "welcome.html"
 	});
 });
 
 carApp.controller("carController", function($scope, $http) {
-	
-	$scope.frontPageCarousel;
-	
+		
 });
 
 carApp.controller("wizardsCouncilController", function($scope, $http) {
@@ -77,7 +78,7 @@ carApp.controller("wizardsCouncilController", function($scope, $http) {
 	
 });
 
-carApp.controller("inventoryController", function($scope, $http) {
+carApp.controller("inventoryController", function($scope, $http, $location) {
 	
 	$scope.showCars = [];
 	$scope.avgMPGs = [];
@@ -185,20 +186,31 @@ carApp.controller("inventoryController", function($scope, $http) {
 	}
 	
 	$scope.filterByPriceRange = (priceRange, priceRange2) => {
-		$scope.isPriceChecked = true;
 		let priceFilterName = null;
 		switch (priceRange) {
 		case 0:
 			priceFilterName = "Under $20,000";
+			$scope.isPrice2Checked = true;
+			$scope.isPrice3Checked = true;
+			$scope.isPrice4Checked = true;
 				break;
 		case 20000:
 			priceFilterName = "$20,000 - $24,999";
+			$scope.isPrice1Checked = true;
+			$scope.isPrice3Checked = true;
+			$scope.isPrice4Checked = true;
 			break;
 		case 25000:
 			priceFilterName = "$25,000 - $29,999";
+			$scope.isPrice1Checked = true;
+			$scope.isPrice2Checked = true;
+			$scope.isPrice4Checked = true;
 			break;
 		case 30000:
 			priceFilterName = "Over $30,000";
+			$scope.isPrice1Checked = true;
+			$scope.isPrice2Checked = true;
+			$scope.isPrice3Checked = true;
 			break;
 		default:
 			priceFilterName = "Selected Price";
@@ -229,6 +241,25 @@ carApp.controller("inventoryController", function($scope, $http) {
 	
 	$scope.clearFilters = () => {
 		location.reload();
+	}
+	
+	
+	
+	$scope.getCarById = (id) => {
+		$http.get("/wizardsautosales/inventory/v1/id/" + id).
+		then(function(response) {
+			window.localStorage.setItem("car", JSON.stringify(response.data));
+			console.log(window.localStorage.getItem("car"));
+			$location.path("/inventory/car")
+		}, function(response) {
+			console.log("error http get cars " + response.status);
+		});
+	}
+	
+	$scope.selectedCarGet = () => {
+		$scope.selectedCar = JSON.parse(window.localStorage.getItem("car"));
+		console.log(JSON.parse($scope.selectedCar))
+		
 	}
 });
 
@@ -413,6 +444,7 @@ carApp.controller("adminController", function ($scope, $http) {
 			function success(response) {
 				$scope.carDeleted = true;
 				$scope.deletedCarSelected = false;
+				$scope.getCars();
 			},
 			function error(response) {
 				console.log("error, return status: " + response.status)
@@ -421,43 +453,66 @@ carApp.controller("adminController", function ($scope, $http) {
 	
 	$scope.makesToDelete = [];
 	$scope.modelsToDelete = [];
+	$scope.deletedModelSelected = false;
+	$scope.deletedMakeSelected = false;
+	$scope.deleteMakeOrModelSuccess = false;
 	
 	$scope.deleteMakeAndModelSetup = () => {
-		$scope.newCarInfo();
-		$http.get("/wizardsautosales/inventory/v1").
-		then(function(response) {
-			$scope.allCars = response.data;
-			$http.get("/wizardsautosales/inventory/v1/makes").
-			then(function(response) {
-				$scope.makes = response.data;
-				console.log($scope.makes)
-				$http.get("/wizardsautosales/inventory/v1/models").
-				then(function(response) {
-					$scope.allModels = response.data;
-					console.log("all cars: " + $scope.allCars);
-					for (let car of $scope.allCars) {
-						for (let make of $scope.makes) {
-							console.log(make.name);
-							console.log(car.make.name);
-							if(make.name === car.make.name) {
-								continue;
-							} else {
-								$scope.makesToDelete.push(make);
-								console.log($scope.makesToDelete)
-							}
-						}
-					}
-				}, function(response) {
-					console.log("error http get models" + response.status);
-				});
-			}, function(response) {
-				console.log("error http get makes" + response.status);
+		$http.get("/wizardsautosales/inventory/v1/unusedmakes")
+		.then(
+			function success(response) {
+				$scope.makesToDelete = response.data;
+			},
+			function error(response) {
+				console.log("error, return status: " + response.status)
 			});
-
-		}, function(response) {
-			console.log("error http get cars " + response.status);
-		});
-
+		$http.get("/wizardsautosales/inventory/v1/unusedmodels")
+		.then(
+			function success(response) {
+				$scope.modelsToDelete = response.data;
+			},
+			function error(response) {
+				console.log("error, return status: " + response.status)
+			});
+	};
+	
+	$scope.selectDeletedMake = (make) => {
+		$scope.deleteMakeOrModelSuccess = false;
+		$scope.deletedMakeSelected = true;
+		$scope.selectedMake = make;
+	}
+	
+	$scope.selectDeletedModel = (model) => {
+		console.log(model);
+		$scope.deleteMakeOrModelSuccess = false
+		$scope.deletedModelSelected = true;
+		$scope.selectedModel = model;
+	}
+	
+	$scope.deleteMake = (name) => {
+		$http.delete("/wizardsautosales/inventory/v1/make/" + name)
+		.then(
+			function success(response){
+				$scope.deleteMakeOrModelSuccess = true;
+				$scope.deletedMakeSelected = false;
+				$scope.deleteMakeAndModelSetup();
+			},
+			function error(response){
+				console.log("error return response: " + response);
+			});
+	}
+	
+	$scope.deleteModel = (name) => {
+		$http.delete("/wizardsautosales/inventory/v1/model/" + name)
+		.then(
+			function success(response){
+				$scope.deleteMakeOrModelSuccess = true;
+				$scope.deletedModelSelected = false;
+				$scope.deleteMakeAndModelSetup();
+			},
+			function error(response){
+				console.log("error return response: " + response.status);
+			})
 	}
 	
 });

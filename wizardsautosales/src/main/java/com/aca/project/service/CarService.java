@@ -91,4 +91,12 @@ public class CarService {
 		SnsPublish.emailSubscribe(email);
 	}
 
+	public List<Make> getUnusedMakes() {
+		return dao.getUnusedMakes();
+	}
+
+	public List<Model> getUnusedModels() {
+		return dao.getUnusedModels();
+	}
+
 }

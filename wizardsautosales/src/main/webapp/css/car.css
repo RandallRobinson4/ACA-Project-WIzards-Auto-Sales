@@ -2,7 +2,7 @@
 
 .logo {
 	font-family: 'Source Code Pro', monospace;
-	color: navy;
+	color: #2a67c9;
 }
 
 .look {
@@ -10,5 +10,18 @@
 }
 
 hr {
-	border:  1px solid navy
+	border:  1px solid #2a67c9;
+}
+
+.index {
+	background-color: #2a67c9;
+}
+
+.view {
+	background-color: #e1e5eb;
+}
+
+.selectcar:hover {
+	color: #b01de0;
+	cursor: pointer;
 }

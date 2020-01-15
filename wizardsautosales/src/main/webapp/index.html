@@ -30,12 +30,14 @@
   </style>
   <link rel="stylesheet" type="text/css" href="css/car.css">
 </head>
-<body ng-app="carApp" ng-controller="carController">
-	<div class="row bg-secondary">
-		<div class="col-sm-2"></div>
-		<div class="col-md-2"><img  width="200" height="175" src="./images/Wizardsautosales.jpg" class="mx-auto d-block img-fluid"></div>
-		<div class="col-md-6 logo align-self-center text-center"><h2>Wizard's Auto Sales</h2></div>
-		<div class="col-md-2 logo">1234 Roadhouse Lane Conway, AR 72033</br> 501-555-4444</div>
+<body class="view" ng-app="carApp" ng-controller="carController">
+	<div class="container-fluid">
+		<div class="row index">
+			<div class="col-sm-2"></div>
+			<div class="col-md-2"><img  width="200" height="175" src="./images/Wizardsautosales.jpg" class="mx-auto d-block img-fluid"></div>
+			<div class="col-md-6 text-white align-self-center look text-center"><h2>Wizard's Auto Sales</h2></div>
+			<div class="col-md-2 text-white look my-auto">1234 Roadhouse Lane Conway, AR 72033</br> 501-555-4444</div>
+		</div>
 	</div>
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 		<div class="navbar-brand"><i class="fas fa-hat-wizard"></i></div>
@@ -44,34 +46,34 @@
 	  		</button>
 			<div class="collapse navbar-collapse" id="collapsibleNavbar">
 				<ul class="navbar-nav">
-				<li class="nav-item">
-						<a class="nav-link logo" href="#!welcome">Welcome</a>
+					<li class="nav-item">
+						<a class="nav-link text-white look" href="#!welcome">Welcome</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link logo" href="#!inventory">Inventory</a>
+						<a class="nav-link text-white look" href="#!inventory">Inventory</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link logo" href="#!tour">Tour</a>
+						<a class="nav-link text-white look" href="#!tour">Tour</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link logo" href="#!wizardscouncil">Wizard's Council</a>
+						<a class="nav-link text-white look" href="#!wizardscouncil">Wizard's Council</a>
 					</li>
 				</ul>
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item">
-					<a class="nav-link logo" href="#!admin">Admin</a>
+					<a class="nav-link text-white look" href="#!admin">Admin</a>
 				</li>
 				<li class="nav-item">
-						<a class="nav-link logo" href="#!resume">Resume</a>
+						<a class="nav-link text-white look" href="#!resume">Resume</a>
 				</li>
 				<li>
-						<a class="nav-link logo" href="#!stack">Stack</a>
+						<a class="nav-link text-white look" href="#!stack">Stack</a>
 				</li>
 			</ul>
 		</div>
 	</nav>
-	
-	<div class="container-fluid look">
+	<div class="container-fluid look view">
+		<br>
 		<div ng-view=""></div>
 	</div>
 	

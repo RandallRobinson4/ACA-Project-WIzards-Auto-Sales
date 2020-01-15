@@ -486,4 +486,66 @@ public class CarDBDao {
 		}
 		return makes;
 	}
+
+	public List<Make> getUnusedMakes() {
+		List<Make> unusedMakes = new ArrayList<>();
+		
+		Connection con = MariaDBUtil.getConnection();
+		Statement statement = null;
+		ResultSet result = null;
+		
+		try {
+			statement = con.createStatement();
+		    result = statement.executeQuery(CarSQL.GETUNUSEDMAKES.statement() + ";");
+			
+			while (result.next()) {
+				Make make = makeMake(result);
+				unusedMakes.add(make);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+			if (con != null) {
+				result.close();
+				statement.close();
+				con.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return unusedMakes;
+	}
+
+	public List<Model> getUnusedModels() {
+		List<Model> unusedModels = new ArrayList<>();
+		
+		Connection con = MariaDBUtil.getConnection();
+		Statement statement = null;
+		ResultSet result = null;
+		
+		try {
+			statement = con.createStatement();
+		    result = statement.executeQuery(CarSQL.GETUNUSEDMODELS.statement() + ";");
+			
+			while (result.next()) {
+				Model model = makeModel(result);
+				unusedModels.add(model);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+			if (con != null) {
+				result.close();
+				statement.close();
+				con.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return unusedModels;
+	}
 }
