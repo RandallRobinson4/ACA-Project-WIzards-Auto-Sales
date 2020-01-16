@@ -411,6 +411,7 @@ carApp.controller("adminController", function ($scope, $http) {
 			function success(response) {
 				$scope.carUpdated = true;
 				$scope.updatedCarSelected = false;
+				$scope.getCars();
 			}, 
 			function failure(response) {
 				$scope.updateStatus = "Update Error, " + response.data.message;
