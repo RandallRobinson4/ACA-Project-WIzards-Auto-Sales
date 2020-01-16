@@ -12,8 +12,8 @@
 				<div class="col-sm-2">
 					<h2>OR</h2>
 				</div>
-					<div class="col-sm-5">
-						<h4>Select From Inventory:</h4>
+				<div class="col-sm-5">
+					<h4>Select From Inventory:</h4>
 						<div class="table-responsive">
 							<table class="table">
 								<tr ng-repeat="car in allCars" class="align-right">
@@ -21,7 +21,6 @@
 									<td> <button class="btn btn-warning" ng-click="selectUpdatedCar(car.id)">Select!</button></td>
 							</table>
 						</div>
-					</div>
 				</div>
 			</div>
 			<div class="table-responsive">
@@ -60,5 +59,6 @@
 		</div>
 	<button ng-show="updatedCarSelected" class="btn btn-warning" ng-click="updateCar()">Submit!</button>
 	</form>
+	<hr>
 <a class="btn nav-link btn-info float-right" href="#!portal">Portal</a>
 </div>
